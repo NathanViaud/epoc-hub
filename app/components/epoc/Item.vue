@@ -1,8 +1,15 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from "@nuxt/ui";
+
 const props = defineProps<{
+    id: number;
     title: string;
     image: string;
     file?: string;
+}>();
+
+const emit = defineEmits<{
+    (e: "deleted", id: number): void;
 }>();
 
 const baseUrl = ref("");
@@ -19,6 +26,37 @@ function downloadQRCode() {
         extension: "png",
     });
 }
+
+const toast = useToast();
+const menu: Ref<DropdownMenuItem[][]> = ref([
+    [
+        {
+            label: "Download",
+            icon: "i-lucide-download",
+            to: props.file,
+            external: true,
+        },
+    ],
+    [
+        {
+            label: "Delete",
+            icon: "i-lucide-trash",
+            color: "error",
+            onClick: async () => {
+                try {
+                    await $fetch(`/api/epocs/${props.id}`, {
+                        method: "DELETE",
+                    });
+                    toast.add({ title: "Success", description: "ePoc deleted successfully", color: "success" });
+                    emit("deleted", props.id);
+                } catch (error) {
+                    console.error(error);
+                    toast.add({ title: "Error", description: "Failed to delete ePoc", color: "error" });
+                }
+            },
+        },
+    ],
+]);
 </script>
 
 <template>
@@ -30,7 +68,6 @@ function downloadQRCode() {
 
         <template v-if="file" #footer>
             <div class="flex gap-2 mt-auto">
-                <UButton :to="file" external block label="Download" icon="i-lucide-download" />
                 <UModal>
                     <UButton block label="QR Code" icon="i-lucide-qr-code" />
 
@@ -49,6 +86,10 @@ function downloadQRCode() {
                         </UCard>
                     </template>
                 </UModal>
+
+                <UDropdownMenu :items="menu">
+                    <UButton icon="i-lucide-ellipsis" variant="subtle" color="neutral" />
+                </UDropdownMenu>
             </div>
         </template>
     </UCard>
