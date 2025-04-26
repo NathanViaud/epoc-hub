@@ -2,7 +2,7 @@
 import type { DropdownMenuItem } from "@nuxt/ui";
 
 const props = defineProps<{
-    id: number;
+    id?: number;
     title: string;
     image: string;
     file?: string;
@@ -48,7 +48,7 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
                         method: "DELETE",
                     });
                     toast.add({ title: "Success", description: "ePoc deleted successfully", color: "success" });
-                    emit("deleted", props.id);
+                    emit("deleted", props.id!);
                 } catch (error) {
                     console.error(error);
                     toast.add({ title: "Error", description: "Failed to delete ePoc", color: "error" });

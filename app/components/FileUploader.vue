@@ -11,6 +11,7 @@ const toast = useToast();
 const open = ref(false);
 const fileInput: Ref<HTMLInputElement | null> = ref(null);
 
+const loading = ref(false);
 const metadata = reactive({
     title: "",
     image: "",
@@ -27,21 +28,26 @@ async function handleFileChange(event: Event) {
     const zip = new JSZip();
     const zipContent = await zip.loadAsync(target.files[0]);
 
-    if (!zipContent.file("content.json")) return;
+    const contentJson = await zipContent.file("content.json")?.async("text");
+    if (!contentJson) return;
 
-    const contentJson = await zipContent.file("content.json").async("text");
     const parsedJson = JSON.parse(contentJson);
     metadata.title = parsedJson.title;
-    metadata.image = parsedJson.image;
+    metadata.image = parsedJson.image.replace(/^assets\//, "");
 
     if (metadata.image) {
-        const imageBlob = await zipContent.file(metadata.image).async("blob");
-        metadata.imageUrl = URL.createObjectURL(imageBlob);
-        metadata.imageFile = new File([imageBlob], metadata.image, { type: imageBlob.type || "image/jpeg" });
+        const originalImagePath = `assets/${metadata.image}`;
+        const imageFile = zipContent.file(originalImagePath);
+        if (imageFile) {
+            const imageBlob = await imageFile.async("blob");
+            metadata.imageUrl = URL.createObjectURL(imageBlob);
+            metadata.imageFile = new File([imageBlob], metadata.image, { type: imageBlob.type || "image/jpeg" });
+        }
     }
 }
 
 async function handleUpload() {
+    loading.value = true;
     try {
         if (!fileInput.value || !metadata.imageFile) return;
 
@@ -54,13 +60,7 @@ async function handleUpload() {
         });
 
         const uploadedFile = await uploadFile(fileInput.value);
-        console.log("uploadedFile", uploadedFile);
-        console.log("uploadedImage", uploadedImage);
-
-        console.log("title", metadata.title);
-        console.log("image", uploadedImage[0].pathname);
-        console.log("file", uploadedFile[0].pathname);
-        console.log("createdAt", new Date());
+        if (!uploadedFile[0] || !uploadedImage[0]) return;
 
         await $fetch("/api/epocs", {
             method: "POST",
@@ -82,6 +82,8 @@ async function handleUpload() {
     } catch (error) {
         toast.add({ title: "Error", description: "Failed to upload file", color: "error" });
     }
+
+    loading.value = false;
 }
 </script>
 
@@ -103,7 +105,7 @@ async function handleUpload() {
                 </div>
 
                 <template #footer>
-                    <UButton block @click="handleUpload" label="Upload" icon="i-lucide-upload" />
+                    <UButton :loading="loading" block @click="handleUpload" label="Upload" icon="i-lucide-upload" />
                 </template>
             </UCard>
         </template>
