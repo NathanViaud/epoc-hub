@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { DropdownMenuItem } from "@nuxt/ui";
+
 const { user, clear } = useUserSession();
 
 const colorMode = useColorMode();
@@ -15,6 +17,26 @@ function logout() {
     clear();
     navigateTo("/login");
 }
+
+const items: Ref<DropdownMenuItem[][]> = ref([
+    [
+        {
+            label: user.value.name,
+            avatar: {
+                src: user.value.avatarUrl,
+                icon: "i-lucide-user",
+            },
+            type: "label",
+        },
+    ],
+    [
+        {
+            label: "logout",
+            icon: "i-lucide-log-out",
+            onClick: logout,
+        },
+    ],
+]);
 </script>
 
 <template>
@@ -35,8 +57,9 @@ function logout() {
                     </template>
                 </ClientOnly>
 
-                <UAvatar v-if="user" :src="user.avatarUrl" />
-                <UButton label="logout" @click="logout" />
+                <UDropdownMenu :items="items">
+                    <UAvatar v-if="user" :src="user.avatarUrl" icon="i-lucide-user" />
+                </UDropdownMenu>
             </div>
         </div>
     </header>

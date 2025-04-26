@@ -25,7 +25,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             },
         });
 
-        return navigateTo("/");
+        await navigateTo("/");
     } catch (error) {
         console.error(error);
     }
