@@ -22,13 +22,14 @@ function downloadQRCode() {
 </script>
 
 <template>
-    <UCard :ui="{ header: 'p-0!' }" class="overflow-hidden">
+    <UCard :ui="{ header: 'p-0!', body: 'border-b-0' }" class="overflow-hidden">
         <template #header>
-            <img :src="image" alt="ePoc image" class="w-full" />
+            <img :src="image" alt="ePoc image" class="w-full aspect-square" />
         </template>
-        <h2 class="font-semibold">{{ title }}</h2>
+        <h2 class="font-semibold flex-1">{{ title }}</h2>
+
         <template v-if="file" #footer>
-            <div class="flex gap-2">
+            <div class="flex gap-2 mt-auto">
                 <UButton :to="file" external block label="Download" icon="i-lucide-download" />
                 <UModal>
                     <UButton block label="QR Code" icon="i-lucide-qr-code" />

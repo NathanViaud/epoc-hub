@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
 
-    modules: ["@nuxt/ui", "@nuxthub/core", "@nuxt/image"],
+    modules: ["@nuxt/ui", "@nuxthub/core", "@nuxt/image", "nuxt-auth-utils"],
 
     css: ["~/assets/css/main.css"],
 
@@ -13,13 +13,6 @@ export default defineNuxtConfig({
     hub: {
         blob: true,
         database: true,
-    },
-
-    devServer: {
-        https: {
-            key: "./localhost-key.pem",
-            cert: "./localhost.pem",
-        },
     },
 
     compatibilityDate: "2024-11-27",

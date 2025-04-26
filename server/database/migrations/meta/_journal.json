@@ -15,6 +15,41 @@
       "when": 1745591191742,
       "tag": "0001_last_mystique",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1745611170462,
+      "tag": "0002_pink_titania",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1745611219554,
+      "tag": "0003_rare_thena",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
+      "when": 1745611706776,
+      "tag": "0004_chief_betty_ross",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1745611766634,
+      "tag": "0005_short_masked_marvel",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "6",
+      "when": 1745658771534,
+      "tag": "0006_equal_the_order",
+      "breakpoints": true
     }
   ]
 }

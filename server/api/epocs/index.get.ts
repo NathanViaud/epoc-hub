@@ -1,3 +1,6 @@
+import { eq } from "drizzle-orm";
+
 export default eventHandler(async (event) => {
-    return useDrizzle().select().from(tables.epocs).all();
+    const { user } = await getUserSession(event);
+    return useDrizzle().select().from(tables.epocs).where(eq(tables.epocs.user, user.id));
 });

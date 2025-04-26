@@ -74,6 +74,11 @@ async function handleUpload() {
         emit("uploaded");
         open.value = false;
         toast.add({ title: "Success", description: "File uploaded successfully", color: "success" });
+
+        metadata.title = "";
+        metadata.image = "";
+        metadata.imageUrl = "";
+        metadata.imageFile = null;
     } catch (error) {
         toast.add({ title: "Error", description: "Failed to upload file", color: "error" });
     }

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    middleware: ["authenticated"],
+});
+
 const { data: epocs, refresh } = await useFetch("/api/epocs");
 </script>
 
