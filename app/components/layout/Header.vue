@@ -40,8 +40,8 @@ const items: Ref<DropdownMenuItem[][]> = ref([
 </script>
 
 <template>
-    <header class="py-2 px-4 border-b border-[var(--ui-border)]">
-        <div class="flex justify-between items-center">
+    <header class="border-b border-[var(--ui-border)]">
+        <div class="flex justify-between items-center max-w-[var(--ui-container)] mx-auto py-2 px-4">
             <span class="font-semibold text-lg">ePoc list</span>
             <div class="flex gap-2 items-center">
                 <ClientOnly v-if="!colorMode?.forced">

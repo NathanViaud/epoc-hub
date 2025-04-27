@@ -20,6 +20,10 @@
     --color-green-950: #052e16;
 }
 
+:root {
+    --ui-container: 90rem;
+}
+
 @layer base {
     h1 {
         @apply text-4xl font-bold;
