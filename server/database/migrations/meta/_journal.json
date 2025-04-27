@@ -71,6 +71,13 @@
       "when": 1745742093217,
       "tag": "0009_glamorous_grim_reaper",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1745760740074,
+      "tag": "0010_careless_satana",
+      "breakpoints": true
     }
   ]
 }

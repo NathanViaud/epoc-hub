@@ -7,14 +7,16 @@ export const epocs = sqliteTable("epocs", {
     title: text("title").notNull(),
     image: text("image").notNull(),
     file: text("file").notNull(),
-    user: integer("user")
+    user: text("user")
         .references(() => users.id)
         .notNull(),
     createdAt: integer("createdAt", { mode: "timestamp" }).default(new Date()),
 });
 
 export const users = sqliteTable("users", {
-    id: integer("id").primaryKey({ autoIncrement: true }),
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => crypto.randomUUID()),
     email: text("email").unique(),
     passwordHash: text("password_hash"),
     name: text("name"),
