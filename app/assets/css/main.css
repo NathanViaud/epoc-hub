@@ -4,8 +4,8 @@
 @theme static {
     --font-sans: "Public Sans", sans-serif;
 
-    --color-primary-400: #e93100;
-    --color-primary-500: #e93100;
+    /* --color-primary-400: #e93100;
+    --color-primary-500: #e93100; */
 
     --color-green-50: #effdf5;
     --color-green-100: #d9fbe8;
@@ -22,6 +22,13 @@
 
 :root {
     --ui-container: 90rem;
+}
+
+.dark {
+    --ui-bg: var(--ui-color-neutral-950);
+    --ui-bg-muted: var(--ui-color-neutral-900);
+    --ui-bg-elevated: var(--ui-color-neutral-900);
+    --ui-bg-accented: var(--ui-color-neutral-800);
 }
 
 @layer base {

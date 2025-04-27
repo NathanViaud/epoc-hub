@@ -15,5 +15,11 @@ export default defineNuxtConfig({
         database: true,
     },
 
+    nitro: {
+        experimental: {
+            tasks: true,
+        },
+    },
+
     compatibilityDate: "2024-11-27",
 });

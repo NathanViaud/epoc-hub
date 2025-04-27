@@ -20,10 +20,20 @@ export const users = sqliteTable("users", {
     name: text("name"),
     github_id: text("github_id").unique(),
     avatarUrl: text("avatar_url"),
+    roleId: integer("role_id")
+        .references(() => roles.id)
+        .notNull()
+        .default(1),
     createdAt: integer("createdAt", { mode: "timestamp" }).default(new Date()),
     updatedAt: integer("updatedAt", { mode: "timestamp" })
         .default(new Date())
         .$onUpdate(() => new Date()),
+});
+
+export const roles = sqliteTable("roles", {
+    id: integer("id").primaryKey({ autoIncrement: false }),
+    name: text("name").notNull(),
+    quota: integer("quota").notNull(),
 });
 
 export const epocInsertSchema = createInsertSchema(epocs, {

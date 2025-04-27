@@ -5,12 +5,14 @@ const props = defineProps<{
     id?: number;
     title: string;
     image: string;
-    file?: string;
+    path?: string;
 }>();
 
 const emit = defineEmits<{
     (e: "deleted", id: number): void;
 }>();
+
+const { data: metadata } = await useFetch(`/api/files/${props.path}`);
 
 const baseUrl = ref("");
 onMounted(() => {
@@ -33,7 +35,7 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
         {
             label: "Download",
             icon: "i-lucide-download",
-            to: props.file,
+            to: `/files/${props.path}`,
             external: true,
         },
     ],
@@ -65,8 +67,9 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
             <img :src="image" alt="ePoc image" class="w-full aspect-square" />
         </template>
         <h2 class="font-semibold flex-1">{{ title }}</h2>
+        <span v-if="metadata" class="text-[var(--ui-text-muted)]">{{ getSizeString(metadata.size) }}</span>
 
-        <template v-if="file" #footer>
+        <template v-if="path" #footer>
             <div class="flex gap-2 mt-auto">
                 <UModal>
                     <UButton block label="QR Code" icon="i-lucide-qr-code" />
@@ -76,7 +79,7 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
                             <template #header>
                                 <h2>QR Code</h2>
                             </template>
-                            <EpocQRCode ref="qrCodeComponent" :link="baseUrl + file" />
+                            <EpocQRCode ref="qrCodeComponent" :link="baseUrl + 'files/' + path" />
                             <template #footer>
                                 <div class="flex gap-2">
                                     <UButton @click="downloadQRCode" block label="Download" icon="i-lucide-download" />

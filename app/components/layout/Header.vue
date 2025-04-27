@@ -21,9 +21,9 @@ function logout() {
 const items: Ref<DropdownMenuItem[][]> = ref([
     [
         {
-            label: user.value.name,
+            label: user.value?.name,
             avatar: {
-                src: user.value.avatarUrl,
+                src: user.value?.avatarUrl,
                 icon: "i-lucide-user",
             },
             type: "label",

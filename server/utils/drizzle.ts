@@ -10,3 +10,4 @@ export function useDrizzle() {
 }
 
 export type Epoc = typeof schema.epocs.$inferSelect;
+export type Role = typeof schema.roles.$inferSelect;
