@@ -38,6 +38,14 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
             to: `/files/${props.path}`,
             external: true,
         },
+        {
+            label: "Copy link",
+            icon: "i-lucide-copy",
+            onClick: async () => {
+                await navigator.clipboard.writeText(`${baseUrl.value}/files/${props.path}`);
+                toast.add({ title: "Success", description: "Link copied to clipboard", color: "success" });
+            },
+        },
     ],
     [
         {
@@ -62,15 +70,15 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
 </script>
 
 <template>
-    <UCard :ui="{ header: 'p-0!', body: 'border-b-0' }" class="overflow-hidden">
-        <template #header>
-            <img :src="image" alt="ePoc image" class="w-full aspect-square" />
-        </template>
-        <h2 class="font-semibold flex-1">{{ title }}</h2>
-        <span v-if="metadata" class="text-[var(--ui-text-muted)]">{{ getSizeString(metadata.size) }}</span>
+    <UCard :ui="{ body: 'p-0! h-full flex flex-col' }" class="overflow-hidden">
+        <img :src="image" alt="ePoc image" class="w-full aspect-square" />
+        <div class="p-4 flex flex-col flex-1 gap-4">
+            <div>
+                <h2 class="font-semibold">{{ title }}</h2>
+                <span v-if="metadata" class="text-[var(--ui-text-muted)]">{{ getSizeString(metadata.size) }}</span>
+            </div>
 
-        <template v-if="path" #footer>
-            <div class="flex gap-2 mt-auto">
+            <div v-if="path" class="flex gap-2 mt-auto">
                 <UModal>
                     <UButton block label="QR Code" icon="i-lucide-qr-code" />
 
@@ -79,21 +87,19 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
                             <template #header>
                                 <h2>QR Code</h2>
                             </template>
-                            <EpocQRCode ref="qrCodeComponent" :link="baseUrl + 'files/' + path" />
+                            <EpocQRCode ref="qrCodeComponent" :link="`${baseUrl}/files/${path}`" />
                             <template #footer>
                                 <div class="flex gap-2">
                                     <UButton @click="downloadQRCode" block label="Download" icon="i-lucide-download" />
-                                    <!-- <UButton block label="Share" icon="i-lucide-share" /> -->
                                 </div>
                             </template>
                         </UCard>
                     </template>
                 </UModal>
-
                 <UDropdownMenu :items="menu">
-                    <UButton icon="i-lucide-ellipsis" variant="subtle" color="neutral" />
+                    <UButton icon="i-lucide-ellipsis" variant="outline" color="neutral" />
                 </UDropdownMenu>
             </div>
-        </template>
+        </div>
     </UCard>
 </template>
