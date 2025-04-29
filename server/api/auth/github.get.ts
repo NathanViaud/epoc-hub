@@ -18,6 +18,6 @@ export default defineOAuthGitHubEventHandler({
         }
 
         await setUserSession(event, { user: dbUser });
-        return sendRedirect(event, "/");
+        return sendRedirect(event, "/files");
     },
 });

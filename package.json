@@ -14,7 +14,7 @@
         "@iconify-json/lucide": "^1.2.38",
         "@iconify-json/simple-icons": "^1.2.33",
         "@nuxt/image": "1.10.0",
-        "@nuxt/ui": "^3.0.2",
+        "@nuxt/ui": "^3.1.0",
         "@nuxthub/core": "0.8.25",
         "drizzle-orm": "^0.43.1",
         "drizzle-zod": "^0.7.1",

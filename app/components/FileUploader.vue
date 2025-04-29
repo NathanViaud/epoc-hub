@@ -89,7 +89,7 @@ async function handleUpload() {
 
 <template>
     <UModal v-model:open="open">
-        <UButton size="xl" label="Upload" icon="i-lucide-upload" />
+        <UButton size="lg" label="Upload" icon="i-lucide-upload" />
         <template #content>
             <UCard>
                 <template #header>

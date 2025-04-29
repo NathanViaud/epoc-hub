@@ -75,7 +75,7 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
         <div class="p-4 flex flex-col flex-1 gap-4">
             <div>
                 <h2 class="font-semibold">{{ title }}</h2>
-                <span v-if="metadata" class="text-[var(--ui-text-muted)]">{{ getSizeString(metadata.size) }}</span>
+                <span v-if="metadata" class="text-muted">{{ getSizeString(metadata.size) }}</span>
             </div>
 
             <div v-if="path" class="flex gap-2 mt-auto">

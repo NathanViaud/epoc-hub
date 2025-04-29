@@ -19,6 +19,7 @@
 
 :root {
     --ui-container: 90rem;
+    --ui-radius: 0.3rem;
 }
 
 .dark {

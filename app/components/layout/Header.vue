@@ -35,6 +35,13 @@ const items: Ref<DropdownMenuItem[][]> = ref([
             icon: "i-lucide-user",
             to: "/user/profile",
         },
+        {
+            label: "Switch Theme",
+            icon: computed(() => (isDark.value ? "i-lucide-sun" : "i-lucide-moon")),
+            onClick: () => {
+                isDark.value = !isDark.value;
+            },
+        },
     ],
     [
         {
@@ -48,32 +55,24 @@ const items: Ref<DropdownMenuItem[][]> = ref([
 </script>
 
 <template>
-    <header class="border-b border-[var(--ui-border)]">
-        <div class="flex justify-between items-center max-w-[var(--ui-container)] mx-auto py-2 px-4">
+    <header class="border-b border-(--ui-border)">
+        <div class="flex justify-between items-center max-w-(--ui-container) mx-auto py-2 px-4">
             <NuxtLink to="/" class="font-semibold text-lg"> ePoc List </NuxtLink>
+
+            <nav>
+                <NuxtLink v-if="loggedIn" to="/files">Files</NuxtLink>
+            </nav>
+
             <div class="flex gap-2 items-center">
-                <ClientOnly v-if="!colorMode?.forced">
-                    <UButton
-                        :icon="isDark ? 'i-lucide-moon' : 'i-lucide-sun'"
-                        color="neutral"
-                        variant="ghost"
-                        @click="isDark = !isDark"
-                    />
-
-                    <template #fallback>
-                        <div class="size-8" />
-                    </template>
-                </ClientOnly>
-
                 <AuthState>
                     <template #default="{ loggedIn, user }">
                         <UDropdownMenu v-if="loggedIn" :items="items">
-                            <UAvatar v-if="user" :src="user.avatarUrl" icon="i-lucide-user" />
+                            <UAvatar v-if="user" :src="user.avatarUrl" icon="i-lucide-user" class="cursor-pointer" />
                         </UDropdownMenu>
                         <UButton v-else to="/login" label="Login" />
                     </template>
                     <template #placeholder>
-                        <div class="size-8 rounded-full animate-pulse bg-[var(--ui-bg-muted)]"></div>
+                        <div class="size-8 rounded-full animate-pulse bg-muted"></div>
                     </template>
                 </AuthState>
             </div>

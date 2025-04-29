@@ -25,7 +25,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             },
         });
 
-        await navigateTo("/");
+        await navigateTo("/files");
     } catch (error) {
         console.error(error);
     }

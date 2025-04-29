@@ -6,6 +6,9 @@ export default defineAppConfig({
             neutral: "slate",
         },
         button: {
+            slots: {
+                base: "cursor-pointer",
+            },
             defaultVariants: {
                 color: "neutral",
             },
@@ -13,6 +16,11 @@ export default defineAppConfig({
         input: {
             defaultVariants: {
                 color: "neutral",
+            },
+        },
+        dropdownMenu: {
+            slots: {
+                item: "cursor-pointer",
             },
         },
     },
