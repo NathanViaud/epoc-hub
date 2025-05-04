@@ -1,27 +1,25 @@
 <script setup lang="ts">
 import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
+import { registerSchema } from "~/database/schema";
 
-const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8).max(100),
-});
-
-type Schema = z.output<typeof schema>;
+type Schema = z.output<typeof registerSchema>;
 
 const state = reactive<Partial<Schema>>({
     email: undefined,
     password: undefined,
+    name: undefined,
 });
 
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-    const { email, password } = event.data;
+    const { email, password, name } = event.data;
     try {
         await $fetch("/api/auth/register", {
             method: "POST",
             body: {
                 email,
                 password,
+                name,
             },
         });
 
@@ -43,10 +41,15 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             </template>
 
             <div class="space-y-4">
-                <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+                <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormField label="Email" name="email">
                         <UInput v-model="state.email" class="w-full" />
                     </UFormField>
+
+                    <UFormField label="Name" name="name" description="Your name or username">
+                        <UInput v-model="state.name" class="w-full" />
+                    </UFormField>
+
                     <UFormField label="Password" name="password">
                         <UInput v-model="state.password" type="password" class="w-full" />
                     </UFormField>

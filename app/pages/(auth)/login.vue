@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
+import { loginSchema } from "~/database/schema";
 
-const schema = z.object({
-    email: z.string().email(),
-    password: z.string().min(8).max(100),
-});
-
-type Schema = z.output<typeof schema>;
+type Schema = z.output<typeof loginSchema>;
 
 const state = reactive<Partial<Schema>>({
     email: undefined,
@@ -45,7 +41,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             </template>
 
             <div class="space-y-4">
-                <UForm :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
+                <UForm :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
                     <UFormField label="Email" name="email">
                         <UInput v-model="state.email" class="w-full" />
                     </UFormField>

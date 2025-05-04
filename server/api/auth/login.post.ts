@@ -14,6 +14,8 @@ export default eventHandler(async (event) => {
         throw createError({ status: 404, message: "Invalid credentials" });
     }
 
+    console.log("user", user);
+
     await setUserSession(event, { user });
     return sendRedirect(event, "/files");
 });

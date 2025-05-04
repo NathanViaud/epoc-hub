@@ -35,6 +35,8 @@ const items: Ref<DropdownMenuItem[][]> = ref([
             icon: "i-lucide-user",
             to: "/user/profile",
         },
+    ],
+    [
         {
             label: "Switch Theme",
             icon: computed(() => (isDark.value ? "i-lucide-sun" : "i-lucide-moon")),

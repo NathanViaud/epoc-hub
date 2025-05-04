@@ -19,7 +19,7 @@ export const users = sqliteTable("users", {
         .$defaultFn(() => crypto.randomUUID()),
     email: text("email").unique(),
     passwordHash: text("password_hash"),
-    name: text("name"),
+    name: text("name").notNull(),
     github_id: text("github_id").unique(),
     avatarUrl: text("avatar_url"),
     roleId: integer("role_id")
@@ -47,4 +47,6 @@ export const loginSchema = z.object({
     password: z.string().min(8).max(100),
 });
 
-export const registerSchema = loginSchema.extend({});
+export const registerSchema = loginSchema.extend({
+    name: z.string().min(2).max(100),
+});

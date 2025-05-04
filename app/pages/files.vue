@@ -25,7 +25,7 @@ function refreshAll() {
                 {{ quota ? getSizeString(quota) : "0" }} / {{ getSizeString(maxQuota) }}</span
             >
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div v-if="epocs?.length" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
             <EpocItem
                 v-for="epoc of epocs"
                 :id="epoc.id"
@@ -34,6 +34,12 @@ function refreshAll() {
                 :path="`${epoc.file}`"
                 @deleted="refreshAll"
             />
+        </div>
+        <div v-else>
+            <div class="flex flex-col gap-2 items-center justify-center text-muted">
+                <UIcon name="i-lucide-folder-x" class="size-10" />
+                <span class="text-lg">No files found</span>
+            </div>
         </div>
     </div>
 </template>
