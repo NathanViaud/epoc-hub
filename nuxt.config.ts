@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     devtools: { enabled: true },
 
-    modules: ["@nuxt/ui", "@nuxthub/core", "@nuxt/image", "nuxt-auth-utils"],
+    modules: ["@nuxt/ui", "@nuxthub/core", "@nuxt/image", "nuxt-auth-utils", "@nuxt/content"],
 
     css: ["~/assets/css/main.css"],
 
