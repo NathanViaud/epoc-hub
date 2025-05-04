@@ -14,9 +14,11 @@ const state = reactive<Partial<Schema>>({
     password: undefined,
 });
 
+const toast = useToast();
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     const { email, password } = event.data;
     try {
+        console.log("logging in");
         await $fetch("/api/auth/login", {
             method: "POST",
             body: {
@@ -24,10 +26,13 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                 password,
             },
         });
+        const { fetch } = useUserSession();
+        await fetch();
 
         await navigateTo("/files");
     } catch (error) {
         console.error(error);
+        toast.add({ title: "Invalid credentials", color: "error" });
     }
 }
 </script>

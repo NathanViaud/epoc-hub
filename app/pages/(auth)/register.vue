@@ -25,6 +25,9 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             },
         });
 
+        const { fetch } = useUserSession();
+        await fetch();
+
         await navigateTo("/files");
     } catch (error) {
         console.error(error);

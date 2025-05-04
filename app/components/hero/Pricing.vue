@@ -70,6 +70,7 @@ const pricings: Pricing[] = [
             <UButton
                 size="xl"
                 :color="pricing.button.color"
+                variant="soft"
                 block
                 :label="pricing.button.label"
                 :disabled="pricing.button.disabled"

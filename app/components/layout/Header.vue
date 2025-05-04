@@ -69,7 +69,10 @@ const items: Ref<DropdownMenuItem[][]> = ref([
                         <UDropdownMenu v-if="loggedIn" :items="items">
                             <UAvatar v-if="user" :src="user.avatarUrl" icon="i-lucide-user" class="cursor-pointer" />
                         </UDropdownMenu>
-                        <UButton v-else to="/login" label="Login" />
+                        <div class="flex gap-2" v-else>
+                            <UButton to="/login" label="Login" variant="outline" />
+                            <UButton to="/register" label="Register" />
+                        </div>
                     </template>
                     <template #placeholder>
                         <div class="size-8 rounded-full animate-pulse bg-muted"></div>
@@ -79,3 +82,11 @@ const items: Ref<DropdownMenuItem[][]> = ref([
         </div>
     </header>
 </template>
+
+<style scoped>
+@reference "../../assets/css/main.css";
+
+.router-link-active {
+    @apply text-primary font-semibold;
+}
+</style>

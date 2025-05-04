@@ -15,4 +15,5 @@ export default eventHandler(async (event) => {
     }
 
     await setUserSession(event, { user });
+    return sendRedirect(event, "/files");
 });
