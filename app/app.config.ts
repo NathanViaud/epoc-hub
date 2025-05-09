@@ -5,6 +5,9 @@ export default defineAppConfig({
             primary: "green",
             neutral: "zinc",
         },
+        icons: {
+            loading: "i-lucide-loader",
+        },
         button: {
             slots: {
                 base: "cursor-pointer",
@@ -19,6 +22,11 @@ export default defineAppConfig({
                     class: "shadow-custom",
                 },
             ],
+        },
+        card: {
+            slots: {
+                root: "shadow",
+            },
         },
         input: {
             defaultVariants: {
