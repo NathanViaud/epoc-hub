@@ -62,7 +62,14 @@ const items: Ref<DropdownMenuItem[][]> = ref([
             <NuxtLink to="/" class="font-semibold text-lg"> ePoc List </NuxtLink>
 
             <nav>
-                <NuxtLink v-if="loggedIn" to="/files">Files</NuxtLink>
+                <UButton
+                    v-if="loggedIn"
+                    to="/files"
+                    label="Files"
+                    variant="link"
+                    color="neutral"
+                    active-color="primary"
+                />
             </nav>
 
             <div class="flex gap-2 items-center">
@@ -84,11 +91,3 @@ const items: Ref<DropdownMenuItem[][]> = ref([
         </div>
     </header>
 </template>
-
-<style scoped>
-@reference "../../assets/css/main.css";
-
-.router-link-active {
-    @apply text-primary font-semibold;
-}
-</style>

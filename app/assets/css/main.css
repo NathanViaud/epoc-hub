@@ -19,9 +19,15 @@
     --color-green-950: #052e16;
 }
 
+@layer utilities {
+    .shadow-custom {
+        box-shadow: inset 0 1px rgba(255, 255, 255, 0.3);
+    }
+}
+
 :root {
     --ui-container: 90rem;
-    --ui-radius: 0.3rem;
+    --ui-radius: 0.35rem;
 }
 
 .dark {
@@ -34,5 +40,9 @@
 @layer base {
     h1 {
         @apply text-4xl font-bold;
+    }
+
+    h2 {
+        @apply text-xl font-semibold;
     }
 }

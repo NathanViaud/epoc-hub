@@ -2,6 +2,7 @@
 import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
 import { registerSchema } from "~/database/schema";
+import type { FetchError } from "ofetch";
 
 type Schema = z.output<typeof registerSchema>;
 
@@ -11,6 +12,7 @@ const state = reactive<Partial<Schema>>({
     name: undefined,
 });
 
+const toast = useToast();
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     const { email, password, name } = event.data;
     try {
@@ -28,6 +30,11 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         await navigateTo("/files");
     } catch (error) {
+        if ((error as FetchError).status === 409) {
+            toast.add({ title: "Email already exists", color: "error" });
+            return;
+        }
+        toast.add({ title: "An error occurred", color: "error" });
         console.error(error);
     }
 }

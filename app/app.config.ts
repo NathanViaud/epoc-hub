@@ -3,7 +3,7 @@ export default defineAppConfig({
     ui: {
         colors: {
             primary: "green",
-            neutral: "slate",
+            neutral: "zinc",
         },
         button: {
             slots: {
@@ -12,6 +12,13 @@ export default defineAppConfig({
             defaultVariants: {
                 color: "neutral",
             },
+            compoundVariants: [
+                {
+                    color: "neutral",
+                    variant: "solid",
+                    class: "shadow-custom",
+                },
+            ],
         },
         input: {
             defaultVariants: {
