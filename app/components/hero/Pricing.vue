@@ -53,7 +53,7 @@ const pricings: Pricing[] = [
 
 <template>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
-        <UCard v-for="pricing of pricings" :ui="{ body: 'flex flex-col gap-4 h-full' }">
+        <UCard v-for="pricing of pricings" :ui="{ body: 'flex flex-col gap-4 h-full' }" variant="subtle">
             <div class="space-y-2">
                 <span class="text-2xl font-semibold">{{ pricing.name }}</span>
                 <p class="text-dimmed">{{ pricing.description }}</p>

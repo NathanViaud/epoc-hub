@@ -10,6 +10,6 @@ watch(route, () => {
 <template>
     <div class="flex fixed inset-0">
         <LayoutSidebar />
-        <slot />
+        <slot class="flex-1" />
     </div>
 </template>

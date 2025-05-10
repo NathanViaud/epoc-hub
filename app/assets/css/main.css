@@ -33,16 +33,12 @@
 .dark {
     --ui-bg: var(--ui-color-neutral-950);
     --ui-bg-muted: var(--ui-color-neutral-900);
-    --ui-bg-elevated: var(--ui-color-neutral-900);
-    --ui-bg-accented: var(--ui-color-neutral-800);
+    --ui-bg-elevated: var(--ui-color-neutral-800);
+    --ui-bg-accented: var(--ui-color-neutral-700);
 }
 
 @layer base {
-    h1 {
-        @apply text-3xl font-bold;
-    }
-
     h2 {
-        @apply text-xl font-semibold;
+        @apply text-lg font-semibold;
     }
 }

@@ -3,6 +3,10 @@ import { z } from "zod";
 import type { FormSubmitEvent } from "@nuxt/ui";
 import { loginSchema } from "~/database/schema";
 
+definePageMeta({
+    layout: "fullpage",
+});
+
 type Schema = z.output<typeof loginSchema>;
 
 const state = reactive<Partial<Schema>>({

@@ -4,6 +4,10 @@ import type { FormSubmitEvent } from "@nuxt/ui";
 import { registerSchema } from "~/database/schema";
 import type { FetchError } from "ofetch";
 
+definePageMeta({
+    layout: "fullpage",
+});
+
 type Schema = z.output<typeof registerSchema>;
 
 const state = reactive<Partial<Schema>>({

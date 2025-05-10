@@ -1,3 +1,9 @@
+<script setup lang="ts">
+definePageMeta({
+    layout: "fullpage",
+});
+</script>
+
 <template>
     <div class="text-center space-y-8">
         <div class="space-y-2">

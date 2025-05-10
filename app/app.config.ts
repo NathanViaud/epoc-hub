@@ -21,6 +21,10 @@ export default defineAppConfig({
                     variant: "solid",
                     class: "shadow-custom",
                 },
+                {
+                    color: "neutral",
+                    variant: "ghost",
+                },
             ],
         },
         card: {

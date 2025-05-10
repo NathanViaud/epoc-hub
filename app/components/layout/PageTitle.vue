@@ -3,9 +3,9 @@ const route = useRoute();
 </script>
 
 <template>
-    <div class="flex gap-2 items-center">
+    <div class="flex gap-1 items-center">
         <LayoutSidebarToggle />
-        <USeparator orientation="vertical" class="h-6" />
-        <h1>{{ route.meta.title }}</h1>
+        <USeparator orientation="vertical" class="h-5" />
+        <h1 class="ml-1 text-2xl font-bold">{{ route.meta.title }}</h1>
     </div>
 </template>

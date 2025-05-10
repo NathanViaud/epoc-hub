@@ -97,7 +97,7 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
                     </template>
                 </UModal>
                 <UDropdownMenu :items="menu">
-                    <UButton icon="i-lucide-ellipsis" variant="outline" color="neutral" />
+                    <UButton icon="i-lucide-ellipsis" variant="ghost" />
                 </UDropdownMenu>
             </div>
         </div>
