@@ -1,6 +1,7 @@
 <template>
     <UApp>
-        <LayoutHeader />
-        <NuxtPage class="p-4 mx-auto max-w-(--ui-container)" />
+        <NuxtLayout>
+            <NuxtPage class="p-4" />
+        </NuxtLayout>
     </UApp>
 </template>

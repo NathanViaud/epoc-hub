@@ -25,7 +25,7 @@ export default defineAppConfig({
         },
         card: {
             slots: {
-                root: "shadow",
+                root: "shadow dark:bg-muted",
             },
         },
         input: {
@@ -38,5 +38,19 @@ export default defineAppConfig({
                 item: "cursor-pointer",
             },
         },
+        // toast: {
+        //     variants: {
+        //         color: {
+        //             success: {
+        //                 root: "bg-success/10 ring-success/25",
+        //                 title: "text-success",
+        //             },
+        //             error: {
+        //                 root: "bg-error/10 ring-error/25",
+        //                 title: "text-error",
+        //             },
+        //         },
+        //     },
+        // },
     },
 });

@@ -38,7 +38,7 @@ const items: Ref<DropdownMenuItem[][]> = ref([
     ],
     [
         {
-            label: "Switch Theme",
+            label: isDark ? "Light mode" : "Dark mode",
             icon: computed(() => (isDark.value ? "i-lucide-sun" : "i-lucide-moon")),
             onClick: () => {
                 isDark.value = !isDark.value;

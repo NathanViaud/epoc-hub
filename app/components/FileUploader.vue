@@ -39,14 +39,19 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
             method: "POST",
             body: formData,
         });
-
         emit("uploaded");
-
-        open.value = false;
         toast.add({ title: "Success", description: "File uploaded successfully", color: "success" });
     } catch (e) {
         toast.add({ title: "Error", description: "Failed to upload file", color: "error" });
     }
+
+    open.value = false;
+    Object.assign(state, {
+        file: undefined,
+        title: undefined,
+        imageUrl: undefined,
+        imageFile: undefined,
+    });
 }
 
 async function handleFileChange(event: Event) {

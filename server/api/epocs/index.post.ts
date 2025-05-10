@@ -10,6 +10,14 @@ export default eventHandler(async (event) => {
 
     const validatedData = await validateFormData(formData);
 
+    const usedQuota = await getUserUsedQuota(user.id);
+    const userQuota = await getUserQuota(user);
+    const remainingQuota = userQuota - usedQuota;
+
+    if (validatedData.file.data.length + validatedData.thumbnail.data.length > remainingQuota) {
+        throw createError({ status: 402, message: "Files too large" });
+    }
+
     const uploadFilePromise: Promise<BlobObject[]> = new Promise((resolve, reject) => {
         resolve(
             hubBlob().handleUpload(event, {
