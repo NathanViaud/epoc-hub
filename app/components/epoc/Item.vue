@@ -6,7 +6,7 @@ const props = defineProps<{
     title: string;
     image: string;
     path?: string;
-    downloads: number;
+    downloads?: number;
 }>();
 
 const emit = defineEmits<{
@@ -72,13 +72,13 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
 
 <template>
     <UCard :ui="{ body: 'p-0! h-full flex flex-col' }" class="overflow-hidden">
-        <img :src="image" alt="ePoc image" class="w-full aspect-square" />
+        <img :src="image" alt="ePoc image" class="w-full aspect-square object-cover" />
         <div class="p-4 flex flex-col flex-1 gap-4">
             <div>
                 <h2 class="font-semibold">{{ title }}</h2>
                 <div class="flex justify-between">
                     <span v-if="metadata" class="text-muted">{{ getSizeString(metadata.size) }}</span>
-                    <span class="text-muted items-center flex gap-1">
+                    <span v-if="downloads !== undefined" class="text-muted items-center flex gap-1">
                         <UIcon name="i-lucide-download" />
                         {{ downloads }}
                     </span>

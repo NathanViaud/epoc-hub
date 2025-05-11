@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    layout: "fullpage",
+});
+
 const route = useRoute();
 
 const { data: page } = await useAsyncData(route.path, () => {

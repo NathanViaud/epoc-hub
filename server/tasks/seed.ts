@@ -12,7 +12,7 @@ export default defineTask({
                 {
                     id: 1,
                     name: "Free",
-                    quota: 1024 * 1024 * 50, // 100 MB
+                    quota: 1024 * 1024 * 50, // 50 MB
                 },
             ]);
 

@@ -10,7 +10,7 @@ export const epocs = sqliteTable("epocs", {
     file: text("file").notNull().unique(),
     downloads: integer("downloads").notNull().default(0),
     user: text("user")
-        .references(() => users.id)
+        .references(() => users.id, { onDelete: "cascade" })
         .notNull(),
     createdAt: integer("createdAt", { mode: "timestamp" }).default(new Date()),
 });

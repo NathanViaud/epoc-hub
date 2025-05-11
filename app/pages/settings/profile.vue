@@ -26,6 +26,8 @@ watchDebounced(
     },
     { debounce: 1000 },
 );
+
+const deleteModal = ref(false);
 </script>
 
 <template>
@@ -52,6 +54,25 @@ watchDebounced(
                 <li class="flex items-center">
                     <span class="flex-1 font-semibold">Username</span>
                     <UInput v-model="username" />
+                </li>
+
+                <USeparator />
+
+                <li class="flex items-center">
+                    <span class="flex-1 font-semibold text-error">Danger zone</span>
+                    <UModal title="Delete your account" v-model:open="deleteModal">
+                        <UButton color="error" label="Delete your account" icon="i-lucide-trash" variant="soft" />
+                        <template #body>
+                            <div class="rounded-full bg-muted size-16 flex items-center justify-center mx-auto mb-4">
+                                <UIcon name="i-lucide-triangle-alert size-10 text-error" />
+                            </div>
+                            <p class="text-center">This will delete all your data from this website</p>
+                        </template>
+                        <template #footer>
+                            <UButton block variant="soft" label="No, keep it" @click="deleteModal = false" />
+                            <UButton block color="error" label="Yes, delete it" />
+                        </template>
+                    </UModal>
                 </li>
             </ul>
         </UCard>
