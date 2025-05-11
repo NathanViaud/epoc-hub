@@ -1,4 +1,5 @@
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
+import { createUpdateSchema } from "drizzle-zod";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -50,4 +51,8 @@ export const loginSchema = z.object({
 
 export const registerSchema = loginSchema.extend({
     name: z.string().min(2).max(100),
+});
+
+export const userUpdateSchema = z.object({
+    name: z.string().optional(),
 });

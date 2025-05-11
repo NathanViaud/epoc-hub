@@ -17,12 +17,14 @@
         "@nuxt/image": "1.10.0",
         "@nuxt/ui": "^3.1.0",
         "@nuxthub/core": "0.8.25",
+        "@vueuse/nuxt": "13.1.0",
         "drizzle-orm": "^0.43.1",
         "drizzle-zod": "^0.7.1",
         "jszip": "^3.10.1",
         "nuxt": "^3.16.2",
         "nuxt-auth-utils": "0.5.20",
         "qr-code-styling": "^1.9.2",
+        "vue": "^3.5.0",
         "zod": "^3.24.3"
     },
     "devDependencies": {

@@ -27,7 +27,7 @@ const items: Ref<DropdownMenuItem[][]> = ref([
         {
             label: "My account",
             avatar: {
-                src: user.value?.avatarUrl,
+                src: computed(() => user.value?.avatarUrl),
                 icon: "i-lucide-user",
             },
             type: "label",

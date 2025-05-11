@@ -1,9 +1,4 @@
 <script setup lang="ts">
-const navigation = [
-    { label: "Files", to: "/files", icon: "i-lucide-folder" },
-    { label: "Profile", to: "/user/profile", icon: "i-lucide-user" },
-];
-
 const { collapsed, opened } = useSidebar();
 </script>
 
