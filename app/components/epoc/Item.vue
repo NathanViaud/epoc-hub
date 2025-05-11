@@ -6,6 +6,7 @@ const props = defineProps<{
     title: string;
     image: string;
     path?: string;
+    downloads: number;
 }>();
 
 const emit = defineEmits<{
@@ -75,7 +76,13 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
         <div class="p-4 flex flex-col flex-1 gap-4">
             <div>
                 <h2 class="font-semibold">{{ title }}</h2>
-                <span v-if="metadata" class="text-muted">{{ getSizeString(metadata.size) }}</span>
+                <div class="flex justify-between">
+                    <span v-if="metadata" class="text-muted">{{ getSizeString(metadata.size) }}</span>
+                    <span class="text-muted items-center flex gap-1">
+                        <UIcon name="i-lucide-download" />
+                        {{ downloads }}
+                    </span>
+                </div>
             </div>
 
             <div v-if="path" class="flex gap-2 mt-auto">

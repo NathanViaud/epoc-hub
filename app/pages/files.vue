@@ -17,7 +17,7 @@ async function refreshAll() {
 </script>
 
 <template>
-    <div class="space-y-5">
+    <div class="space-y-5 w-full">
         <div class="flex justify-between items-center">
             <LayoutPageTitle />
             <div class="flex items-center gap-2">
@@ -44,6 +44,7 @@ async function refreshAll() {
                 :title="epoc.title"
                 :image="`/images/${epoc.image}`"
                 :path="`${epoc.file}`"
+                :downloads="epoc.downloads"
                 @deleted="refreshAll"
             />
         </div>

@@ -6,7 +6,8 @@ export const epocs = sqliteTable("epocs", {
     id: integer("id").primaryKey({ autoIncrement: true }),
     title: text("title").notNull(),
     image: text("image").notNull(),
-    file: text("file").notNull(),
+    file: text("file").notNull().unique(),
+    downloads: integer("downloads").notNull().default(0),
     user: text("user")
         .references(() => users.id)
         .notNull(),
