@@ -32,10 +32,8 @@ const deleteModal = ref(false);
 
 <template>
     <div class="space-y-5 w-full">
-        <div>
-            <LayoutPageTitle />
-        </div>
-        <UCard :ui="{ body: 'flex flex-col gap-2 items-center' }" class="w-full max-w-4xl mx-auto">
+        <LayoutPageTitle />
+        <UCard class="w-full max-w-4xl mx-auto">
             <template #header>
                 <div class="flex items-center gap-2">
                     <UIcon name="i-lucide-user" class="text-muted size-5" />
@@ -61,10 +59,10 @@ const deleteModal = ref(false);
                 <li class="flex items-center">
                     <span class="flex-1 font-semibold text-error">Danger zone</span>
                     <UModal title="Delete your account" v-model:open="deleteModal">
-                        <UButton color="error" label="Delete your account" icon="i-lucide-trash" variant="soft" />
+                        <UButton color="error" label="Delete your account" icon="i-lucide-trash" />
                         <template #body>
-                            <div class="rounded-full bg-muted size-16 flex items-center justify-center mx-auto mb-4">
-                                <UIcon name="i-lucide-triangle-alert size-10 text-error" />
+                            <div class="rounded-full size-16 bg-muted flex items-center justify-center mx-auto mb-4">
+                                <UIcon name="i-lucide-triangle-alert" class="size-10 text-error" />
                             </div>
                             <p class="text-center">This will delete all your data from this website</p>
                         </template>

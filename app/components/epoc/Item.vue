@@ -7,6 +7,7 @@ const props = defineProps<{
     image: string;
     path?: string;
     downloads?: number;
+    libraryMode?: boolean;
 }>();
 
 const emit = defineEmits<{
@@ -48,7 +49,9 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
             },
         },
     ],
-    [
+]);
+if (!props.libraryMode) {
+    menu.value.push([
         {
             label: "Delete",
             icon: "i-lucide-trash",
@@ -66,8 +69,8 @@ const menu: Ref<DropdownMenuItem[][]> = ref([
                 }
             },
         },
-    ],
-]);
+    ]);
+}
 </script>
 
 <template>
