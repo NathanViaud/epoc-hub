@@ -11,8 +11,8 @@
         "db:generate": "drizzle-kit generate"
     },
     "dependencies": {
-        "@iconify-json/lucide": "^1.2.38",
-        "@iconify-json/simple-icons": "^1.2.33",
+        "@iconify-json/lucide": "^1.2.42",
+        "@iconify-json/simple-icons": "^1.2.34",
         "@nuxt/content": "^3.5.1",
         "@nuxt/image": "1.10.0",
         "@nuxt/ui": "^3.1.0",

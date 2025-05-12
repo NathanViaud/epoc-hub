@@ -28,7 +28,7 @@ async function refreshAll() {
                     :loading="loading"
                     variant="outline"
                 />
-                <FileUploader @uploaded="refreshAll" />
+                <FileUploader @uploaded="refreshAll" size="lg" />
             </div>
         </div>
         <div class="flex flex-col gap-2" v-if="maxQuota">

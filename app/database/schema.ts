@@ -15,6 +15,16 @@ export const epocs = sqliteTable("epocs", {
     createdAt: integer("createdAt", { mode: "timestamp" }).default(new Date()),
 });
 
+export const libraries = sqliteTable("libraries", {
+    id: text("id")
+        .primaryKey()
+        .$defaultFn(() => generateId(16)),
+    user: text("user")
+        .references(() => users.id, { onDelete: "cascade" })
+        .notNull()
+        .unique(),
+});
+
 export const users = sqliteTable("users", {
     id: text("id")
         .primaryKey()
@@ -56,3 +66,11 @@ export const registerSchema = loginSchema.extend({
 export const userUpdateSchema = z.object({
     name: z.string().optional(),
 });
+
+function generateId(length: number) {
+    const array = new Uint32Array(length);
+    crypto.getRandomValues(array);
+    return Array.from(array, (dec) => ("0" + dec.toString(16)).substr(-2))
+        .join("")
+        .substring(0, length);
+}

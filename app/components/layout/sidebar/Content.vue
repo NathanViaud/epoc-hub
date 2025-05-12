@@ -5,7 +5,10 @@ defineProps<{
 const navigation = [
     {
         label: "Home",
-        content: [{ label: "Files", to: "/files", icon: "i-lucide-folder" }],
+        content: [
+            { label: "Files", to: "/files", icon: "i-lucide-folder" },
+            { label: "Library", to: "/library", icon: "i-lucide-library" },
+        ],
     },
     {
         label: "Settings",
