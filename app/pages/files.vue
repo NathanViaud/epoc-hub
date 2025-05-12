@@ -37,7 +37,10 @@ async function refreshAll() {
                 {{ quota ? getSizeString(quota) : "0" }} / {{ getSizeString(maxQuota) }}</span
             >
         </div>
-        <div v-if="epocs?.length" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+        <div
+            v-if="epocs?.length"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 gap-4"
+        >
             <EpocItem
                 v-for="epoc of epocs"
                 :id="epoc.id"
