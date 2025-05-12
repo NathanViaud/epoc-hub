@@ -11,5 +11,9 @@ const { data: page } = await useAsyncData(route.path, () => {
 </script>
 
 <template>
-    <ContentRenderer v-if="page" :value="page" class="prose prose-slate dark:prose-invert" />
+    <ContentRenderer
+        v-if="page"
+        :value="page"
+        class="prose prose-h2:*:no-underline prose-zinc dark:prose-invert mx-auto"
+    />
 </template>

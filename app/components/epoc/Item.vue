@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from "@nuxt/ui";
+import type { BlobObject } from "@nuxthub/core";
 
 const props = defineProps<{
     id?: number;
@@ -14,7 +15,7 @@ const emit = defineEmits<{
     (e: "deleted", id: number): void;
 }>();
 
-const { data: metadata } = await useFetch(`/api/files/${props.path}`);
+const { data: metadata } = await useFetch<BlobObject>(`/api/files/${props.path}`);
 
 const baseUrl = ref("");
 onMounted(() => {

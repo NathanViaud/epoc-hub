@@ -1,7 +1,7 @@
 <template>
     <UApp>
         <NuxtLayout>
-            <NuxtPage class="p-4" />
+            <NuxtPage />
         </NuxtLayout>
     </UApp>
 </template>

@@ -30,12 +30,7 @@
 }
 
 :root {
-    --ui-container: 90rem;
     --ui-radius: 0.35rem;
-}
-
-body {
-    @apply font-medium;
 }
 
 .dark {

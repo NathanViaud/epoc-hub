@@ -1,17 +1,17 @@
-# Privacy Policy for [Your App Name]
+# Privacy Policy
 
 **Effective Date: [Insert Date]**
 
-At [Your App Name], we are committed to protecting your privacy and ensuring the security of your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our file storage services.
+At ePhost, we are committed to protecting your privacy and ensuring the security of your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our file storage services.
 
 ## 1. Information We Collect
 
 We collect the following types of personal information from our users:
 
-- **Account Information**: When you register for an account, we collect your email address and password. If you choose to register using a third-party service (such as Google or Facebook), we may also collect additional information, such as your name and profile picture, as permitted by the third-party service.
-- **Usage Data**: We collect information about how you use our services, including the types of files you store, the frequency of access, and the features you use.
+- **Account Information**: When you register for an account, we collect your email address and password. If you choose to register using a third-party service (such as Google or GitHub), we may also collect additional information, such as your name and profile picture, as permitted by the third-party service.
+- **Usage Data**: We collect information about how you use our services, the frequency of access, and the features you use.
 - **Log Files**: Our servers automatically collect certain information when you access our services, including your IP address, browser type, operating system, referral URLs, device information, and timestamps.
-- **Cookies and Similar Technologies**: We use cookies and similar technologies to collect information about your interactions with our services and to improve your user experience.
+- **Cookies and Similar Technologies**: We use cookies and similar technologies for authentication purposes and to store user preferences, such as theme settings
 
 ## 2. How We Use Your Information
 
@@ -36,11 +36,11 @@ We may share your personal information with the following parties:
 
 You have the right to:
 
-- Access and review your personal information.
-- Correct or update your personal information.
-- Request the deletion of your personal information.
-- Object to the processing of your personal information.
-- Withdraw your consent to the collection and processing of your personal information at any time.
+- **Access and review**: Access and review your personal information.
+- **Rectification**: Correct or update your personal information.
+- **Erasure**: Request the deletion of your personal information.
+- **Restriction of Processing**: Object to the processing of your personal information.
+- **Withdraw consent**: Withdraw your consent to the collection and processing of your personal information at any time.
 
 To exercise these rights, please contact us at [Your Contact Email].
 
@@ -64,6 +64,22 @@ Our services are not intended for use by children under the age of 13. We do not
 
 We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page and updating the "Effective Date" at the top. You are advised to review this Privacy Policy periodically for any changes.
 
-## 10. Contact Us
+## 10. Legal basis for processing
+
+We process your personal information based on one or more of the following legal grounds:
+
+- **Consent**: Where you have given clear consent for us to process your personal data for a specific purpose.
+- **Contract**: Where processing is necessary for the performance of a contract to which you are a party or to take steps at your request before entering into a contract.
+- **Legal Obligation**: Where processing is necessary for compliance with a legal obligation to which we are subject.
+- **Legitimate Interests**: Where processing is necessary for the purposes of the legitimate interests pursued by us or by a third party, except where such interests are overridden by your interests or fundamental rights and freedoms.
+
+## 11. Data breach notification
+
+In the event of a data breach that is likely to result in a high risk to your rights and freedoms, we will notify you through the platform and, if necessary, make a public announcement without undue delay.
+
+## 12. Complaints to Supervisory Authority
+
+If you believe that we have not complied with your data protection rights, you have the right to lodge a complaint with the supervisory authority. In France, the supervisory authority is the Commission Nationale de l'Informatique et des Libertés (CNIL). You can find more information on their website: [www.cnil.fr](https://www.cnil.fr)
+## 13. Contact Us
 
 If you have any questions or concerns about this Privacy Policy, please contact us at [Your Contact Email].
