@@ -1,6 +1,9 @@
 <template>
     <footer class="flex items-center justify-between border-t border-(--ui-border) py-8">
-        <span class="text-sm">2025 Nathan Viaud</span>
+        <span class="text-sm text-muted">
+            Made with ❤️
+            <NuxtLink href="https://github.com/NathanViaud">Nathan Viaud</NuxtLink>
+        </span>
         <nav>
             <UButton
                 variant="link"

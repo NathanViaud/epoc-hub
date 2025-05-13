@@ -26,7 +26,7 @@ const navigation = [
             <div class="size-6 flex items-center justify-center border border-(--ui-border) rounded-sm">
                 <UIcon name="i-lucide-cloud" />
             </div>
-            <span :class="{ hidden: collapsed }">Files cloud</span>
+            <span :class="{ hidden: collapsed }">ePoc Host</span>
         </div>
 
         <div v-for="part of navigation" class="flex flex-col gap-1">

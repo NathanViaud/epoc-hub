@@ -23,7 +23,7 @@ const pricings: Pricing[] = [
         price: "0 €",
         features: [
             {
-                label: "200 MB of storage",
+                label: "150 MB of storage",
                 icon: "i-lucide-cloud-upload",
             },
         ],
@@ -38,7 +38,7 @@ const pricings: Pricing[] = [
         price: "Soon",
         features: [
             {
-                label: "50 GB of storage",
+                label: "10 GB of storage",
                 icon: "i-lucide-cloud-upload",
             },
         ],
@@ -52,7 +52,7 @@ const pricings: Pricing[] = [
 </script>
 
 <template>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl mx-auto">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-3xl">
         <UCard v-for="pricing of pricings" :ui="{ body: 'flex flex-col gap-4 h-full' }">
             <div class="space-y-2">
                 <span class="text-2xl font-semibold">{{ pricing.name }}</span>

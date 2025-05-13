@@ -12,7 +12,7 @@ const plans = [
         price: "Free for all users",
         features: [
             {
-                label: "200MB of storage",
+                label: "150MB of storage",
                 icon: "i-lucide-cloud-upload",
             },
         ],
@@ -23,7 +23,7 @@ const plans = [
         price: "Soon",
         features: [
             {
-                label: "50GB of storage",
+                label: "10GB of storage",
                 icon: "i-lucide-cloud-upload",
             },
         ],
