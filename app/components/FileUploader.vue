@@ -29,25 +29,24 @@ const state = reactive<Partial<Schema>>({
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     const { file, title, imageFile } = event.data;
     try {
-        const formData = new FormData();
+        const upload = useUpload("/api/files", { method: "PUT" });
+        const uploadedFile = await upload(file);
 
-        // Only append thumbnail if imageFile exists
+        let uploadedImage;
         if (imageFile) {
-            formData.append("thumbnail", imageFile);
+            const uploadImage = useUpload("/api/files/thumbnail", { method: "PUT" });
+            uploadedImage = await uploadImage(imageFile);
         }
-
-        formData.append("file", file);
-        formData.append("title", title);
 
         await $fetch("/api/epocs", {
             method: "POST",
-            body: formData,
-            // Add explicit content-type header to ensure proper boundary handling
-            headers: {
-                // Let the browser set the Content-Type for FormData
-                // Don't set it manually to ensure proper multipart boundary
+            body: {
+                title,
+                file: uploadedFile.pathname,
+                image: uploadedImage?.pathname ?? undefined,
             },
         });
+
         emit("uploaded");
         toast.add({ title: "Success", description: "File uploaded successfully", color: "success" });
     } catch (e) {
@@ -83,7 +82,6 @@ async function handleFileChange(event: Event) {
         const parsedJson = JSON.parse(contentJson);
         state.title = parsedJson.title || "Untitled";
 
-        // Check if the image path exists in the JSON
         if (parsedJson.image) {
             const path = parsedJson.image.replace(/^.*[\\\/]/, "");
 
@@ -94,13 +92,11 @@ async function handleFileChange(event: Event) {
                     state.imageUrl = URL.createObjectURL(imageBlob);
                     state.imageFile = new File([imageBlob], path, { type: imageBlob.type || "image/jpeg" });
                 } else {
-                    // Clear image references if file doesn't exist in zip
                     state.imageUrl = undefined;
                     state.imageFile = undefined;
                 }
             }
         } else {
-            // Clear image references if no image in JSON
             state.imageUrl = undefined;
             state.imageFile = undefined;
         }

@@ -16,7 +16,7 @@ const emit = defineEmits<{
     (e: "deleted", id: number): void;
 }>();
 
-const { data: metadata } = props.preview ? await useFetch<BlobObject>(`/api/files/${props.path}`) : { data: undefined };
+const { data: metadata } = props.preview ? { data: undefined } : await useFetch<BlobObject>(`/api/files/${props.path}`);
 
 const baseUrl = ref("");
 onMounted(() => {

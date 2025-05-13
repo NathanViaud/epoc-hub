@@ -33,20 +33,24 @@ const uploadSchema = z.object({
     }),
 });
 
+export async function getRemainingQuota(user: User) {
+    const userQuota = await getUserQuota(user);
+    const usedQuota = await getUserUsedQuota(user.id);
+
+    return userQuota - usedQuota;
+}
+
 export type Upload = z.infer<typeof uploadSchema>;
 
 export async function validateFormData(formData: MultiPartData[]): Promise<Upload> {
     const parsedData: Partial<Upload> = {
         thumbnail: undefined,
-        file: undefined,
         title: undefined,
     };
 
     formData.forEach((part) => {
         if (part.name === "thumbnail") {
             parsedData.thumbnail = (part as Upload["thumbnail"]) || undefined;
-        } else if (part.name === "file") {
-            parsedData.file = part as Upload["file"];
         } else if (part.name === "title") {
             parsedData.title = part.data.toString();
         }
