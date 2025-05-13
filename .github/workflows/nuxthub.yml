@@ -1,5 +1,9 @@
 name: Deploy to NuxtHub
-on: push
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
