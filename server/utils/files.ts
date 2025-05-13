@@ -55,6 +55,7 @@ export async function validateFormData(formData: MultiPartData[]): Promise<Uploa
     try {
         return uploadSchema.parse(parsedData);
     } catch (e) {
+        console.error(e);
         throw createError({ status: 400 });
     }
 }

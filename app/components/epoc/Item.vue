@@ -9,13 +9,14 @@ const props = defineProps<{
     path?: string;
     downloads?: number;
     libraryMode?: boolean;
+    preview?: boolean;
 }>();
 
 const emit = defineEmits<{
     (e: "deleted", id: number): void;
 }>();
 
-const { data: metadata } = await useFetch<BlobObject>(`/api/files/${props.path}`);
+const { data: metadata } = props.preview ? await useFetch<BlobObject>(`/api/files/${props.path}`) : { data: undefined };
 
 const baseUrl = ref("");
 onMounted(() => {
