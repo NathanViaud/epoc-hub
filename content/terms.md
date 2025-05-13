@@ -49,4 +49,4 @@ Our service reserves the right to modify these Terms at any time. We notify you 
 
 ## 12. Contact information
 
-If you have any question about these Terms, please contact use at .
+If you have any question about these Terms, please contact us at .
