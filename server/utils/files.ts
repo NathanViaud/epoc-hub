@@ -19,11 +19,13 @@ export async function getUserQuota(user: User) {
 
 const uploadSchema = z.object({
     title: z.string().min(1),
-    thumbnail: z.object({
-        data: z.instanceof(Buffer).refine((buffer) => buffer.length > 0),
-        filename: z.string().optional(),
-        type: z.string().startsWith("image/"),
-    }),
+    thumbnail: z
+        .object({
+            data: z.instanceof(Buffer).refine((buffer) => buffer.length > 0),
+            filename: z.string().optional(),
+            type: z.string().startsWith("image/"),
+        })
+        .optional(),
     file: z.object({
         data: z.instanceof(Buffer).refine((buffer) => buffer.length > 0),
         filename: z.string().optional(),
@@ -42,7 +44,7 @@ export async function validateFormData(formData: MultiPartData[]): Promise<Uploa
 
     formData.forEach((part) => {
         if (part.name === "thumbnail") {
-            parsedData.thumbnail = part as Upload["thumbnail"];
+            parsedData.thumbnail = (part as Upload["thumbnail"]) || undefined;
         } else if (part.name === "file") {
             parsedData.file = part as Upload["file"];
         } else if (part.name === "title") {

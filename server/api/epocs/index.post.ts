@@ -14,7 +14,7 @@ export default eventHandler(async (event) => {
     const userQuota = await getUserQuota(user);
     const remainingQuota = userQuota - usedQuota;
 
-    if (validatedData.file.data.length + validatedData.thumbnail.data.length > remainingQuota) {
+    if (validatedData.file.data.length + (validatedData.thumbnail?.data.length || 0) > remainingQuota) {
         throw createError({ status: 402, message: "Files too large" });
     }
 
@@ -50,10 +50,12 @@ export default eventHandler(async (event) => {
 
     const [file, thumbnail] = await Promise.all([uploadFilePromise, uploadThumbnailPromise]);
 
-    return useDrizzle().insert(tables.epocs).values({
-        title: validatedData.title,
-        image: thumbnail[0].pathname,
-        file: file[0].pathname,
-        user: user.id,
-    });
+    return useDrizzle()
+        .insert(tables.epocs)
+        .values({
+            title: validatedData.title,
+            image: thumbnail[0]?.pathname || undefined,
+            file: file[0].pathname,
+            user: user.id,
+        });
 });

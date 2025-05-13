@@ -1,8 +1,8 @@
-# Privacy Policy
+# Privacy policy
 
 **Effective Date: [Insert Date]**
 
-At ePhost, we are committed to protecting your privacy and ensuring the security of your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our file storage services.
+At ePhost, we are committed to protecting your privacy and ensuring the security of your personal data in compliance with the General Data Protection Regulation (GDPR). This Privacy policy explains how we collect, use, disclose, and safeguard your information when you use our services.
 
 ## 1. Information We Collect
 
@@ -66,7 +66,7 @@ We may update this Privacy Policy from time to time. We will notify you of any c
 
 ## 10. Legal basis for processing
 
-We process your personal information based on one or more of the following legal grounds:
+Under the General Data Protection Regulation (GDPR), we process your personal information based on one or more of the following legal grounds:
 
 - **Consent**: Where you have given clear consent for us to process your personal data for a specific purpose.
 - **Contract**: Where processing is necessary for the performance of a contract to which you are a party or to take steps at your request before entering into a contract.

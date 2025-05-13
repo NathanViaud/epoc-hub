@@ -5,7 +5,7 @@ import type { BlobObject } from "@nuxthub/core";
 const props = defineProps<{
     id?: number;
     title: string;
-    image: string;
+    image?: string;
     path?: string;
     downloads?: number;
     libraryMode?: boolean;
@@ -76,7 +76,14 @@ if (!props.libraryMode) {
 
 <template>
     <UCard :ui="{ body: 'p-0! h-full flex flex-col' }" class="overflow-hidden">
-        <img :src="image" alt="ePoc image" class="w-full aspect-square object-cover" />
+        <img v-if="image" :src="image" alt="Thumbnail" class="w-full aspect-square object-cover" />
+        <img
+            v-else
+            src="/placeholder.png"
+            alt="Default thumbnail"
+            class="w-full aspect-square object-cover dark:invert p-4"
+        />
+
         <div class="p-4 flex flex-col flex-1 gap-4">
             <div>
                 <h2 class="font-semibold">{{ title }}</h2>
