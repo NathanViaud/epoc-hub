@@ -38,9 +38,14 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         formData.append("file", file);
         formData.append("title", title);
 
+        const headers = {
+            "Content-Type": "multipart/form-data",
+        };
+
         await $fetch("/api/epocs", {
             method: "POST",
             body: formData,
+            headers,
         });
         emit("uploaded");
         toast.add({ title: "Success", description: "File uploaded successfully", color: "success" });
