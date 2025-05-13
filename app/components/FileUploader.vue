@@ -13,8 +13,8 @@ const open = ref(false);
 const schema = z.object({
     file: z.instanceof(File, { message: "File is required" }),
     title: z.string(),
-    imageUrl: z.string(),
-    imageFile: z.instanceof(File),
+    imageUrl: z.string().optional(),
+    imageFile: z.instanceof(File).optional(),
 });
 
 type Schema = z.output<typeof schema>;
@@ -31,7 +31,10 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     try {
         const formData = new FormData();
 
-        formData.append("thumbnail", imageFile);
+        if (imageFile) {
+            formData.append("thumbnail", imageFile);
+        }
+
         formData.append("file", file);
         formData.append("title", title);
 
@@ -67,11 +70,10 @@ async function handleFileChange(event: Event) {
 
     const parsedJson = JSON.parse(contentJson);
     state.title = parsedJson.title;
-    const path = parsedJson.image.replace(/^assets\//, "");
+    const path = parsedJson.image.replace(/^.*[\\\/]/, "");
 
     if (path) {
-        const originalImagePath = `assets/${path}`;
-        const imageFile = zipContent.file(originalImagePath);
+        const imageFile = zipContent.file(parsedJson.image);
         if (imageFile) {
             const imageBlob = await imageFile.async("blob");
             state.imageUrl = URL.createObjectURL(imageBlob);
@@ -95,13 +97,13 @@ const form = useTemplateRef("form");
                     <UFormField label="File" name="file">
                         <UInput type="file" @change="handleFileChange" name="file" accept=".epoc" class="w-full" />
                     </UFormField>
-                    <div v-if="state.title && state.imageUrl" class="space-y-3 mt-5">
+                    <div v-if="state.title" class="space-y-3 mt-5">
                         <USeparator />
                         <h2>Preview</h2>
 
                         <EpocItem :title="state.title" :image="state.imageUrl" />
                     </div>
-                    <UButton block type="submit" labl="Upload" icon="i-lucide-upload" :loading="form?.loading" />
+                    <UButton block type="submit" label="Upload" icon="i-lucide-upload" :loading="form?.loading" />
                 </UForm>
             </UCard>
         </template>

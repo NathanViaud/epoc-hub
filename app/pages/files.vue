@@ -45,7 +45,7 @@ async function refreshAll() {
                 v-for="epoc of epocs"
                 :id="epoc.id"
                 :title="epoc.title"
-                :image="`/images/${epoc.image}`"
+                :image="epoc.image ? `/images/${epoc.image}` : undefined"
                 :path="`${epoc.file}`"
                 :downloads="epoc.downloads"
                 @deleted="refreshAll"

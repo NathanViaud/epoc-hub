@@ -38,8 +38,11 @@ const navigation = [
                         :square="collapsed"
                         :to="item.to"
                         :icon="item.icon"
+                        :ui="{
+                            base: 'hover:bg-accented/75 ',
+                        }"
+                        active-class="bg-accented/75"
                         variant="ghost"
-                        active-variant="soft"
                         class="w-full"
                         size="lg"
                     />
