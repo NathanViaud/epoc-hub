@@ -1,5 +1,5 @@
 <template>
-    <footer class="flex items-center justify-between border-t border-(--ui-border) py-8">
+    <footer class="flex flex-col gap-3 sm:flex-row items-center justify-between border-t border-(--ui-border) py-8">
         <span class="text-sm text-muted flex items-center gap-1">
             <span>Made with </span>
             <div class="relative">
@@ -10,6 +10,7 @@
                     mode="svg"
                 />
             </div>
+            <span>By</span>
             <NuxtLink href="https://github.com/NathanViaud">Nathan Viaud</NuxtLink>
         </span>
         <nav>

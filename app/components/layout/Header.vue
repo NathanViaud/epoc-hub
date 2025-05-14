@@ -1,5 +1,5 @@
 <template>
-    <header class="border-b border-(--ui-border) sticky top-0 backdrop-blur-lg bg-bg/60">
+    <header class="border-b border-(--ui-border) sticky top-0 backdrop-blur-lg bg-(--ui-bg)/60">
         <UContainer>
             <div class="flex items-center justify-between py-2">
                 <NuxtLink to="/" class="font-semibold"> ePoc Host </NuxtLink>
