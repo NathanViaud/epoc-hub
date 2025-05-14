@@ -1,75 +1,22 @@
-# Nuxt UI Starter
+# ePocs Host
 
-Look at [Nuxt docs](https://nuxt.com/docs/getting-started/introduction) and [Nuxt UI docs](https://ui.nuxt.com) to learn more.
+ePocs Host permit you to host ePocs easily & share them with your learners via QR Code
 
-## Setup
+## Development
 
-Make sure to install the dependencies:
-
-```bash
-# npm
-npm install
-
-# pnpm
+### Install dependencies
+```shell
 pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
 ```
 
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
+### Start server
+```shell
 pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+### Generate migration
+```shell
+pnpm run db:generate
 ```
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Migrations are automatically applied by the dev server
