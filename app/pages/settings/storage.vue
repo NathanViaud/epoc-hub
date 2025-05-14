@@ -7,7 +7,9 @@ definePageMeta({
 const { data: used, refresh } = await useFetch("/api/files/used");
 
 const toast = useToast();
+const loading = ref(false);
 async function cleanup() {
+    loading.value = true;
     try {
         const { deleted } = await $fetch("/api/files/cleanup", {
             method: "POST",
@@ -22,6 +24,7 @@ async function cleanup() {
     } catch (e) {
         toast.add({ title: "Error during cleanup", color: "error" });
     }
+    loading.value = false;
 }
 </script>
 
@@ -51,7 +54,7 @@ async function cleanup() {
                             This can happen if an error occurs on our end.
                         </p>
                     </div>
-                    <UButton icon="i-lucide-brush-cleaning" label="Cleanup" @click="cleanup" />
+                    <UButton :loading="loading" icon="i-lucide-brush-cleaning" label="Cleanup" @click="cleanup" />
                 </li>
             </ul>
         </UCard>
