@@ -1,6 +1,6 @@
 PRAGMA foreign_keys = OFF;
 
--- Create the new table without the unique constraint on google_id
+-- Create the new epocs table
 CREATE TABLE `__new_epocs` (
     `id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
     `title` text NOT NULL,
@@ -12,7 +12,7 @@ CREATE TABLE `__new_epocs` (
     FOREIGN KEY (`user`) REFERENCES `users` (`id`) ON UPDATE no action ON DELETE cascade
 );
 
--- Insert data into the new table
+-- Insert data into the new epocs table
 INSERT INTO
     `__new_epocs` (
         "id",
@@ -34,10 +34,10 @@ SELECT
 FROM
     `epocs`;
 
--- Drop the old table
+-- Drop the old epocs table
 DROP TABLE `epocs`;
 
--- Rename the new table
+-- Rename the new epocs table
 ALTER TABLE `__new_epocs`
 RENAME TO `epocs`;
 
@@ -46,7 +46,7 @@ PRAGMA foreign_keys = ON;
 -- Create the unique index on file
 CREATE UNIQUE INDEX `epocs_file_unique` ON `epocs` (`file`);
 
--- Create the new users table without the unique constraint on google_id
+-- Create the new users table with the new google_id column
 CREATE TABLE `__new_users` (
     `id` text PRIMARY KEY NOT NULL,
     `email` text,
@@ -61,7 +61,7 @@ CREATE TABLE `__new_users` (
     FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON UPDATE no action ON DELETE no action
 );
 
--- Insert data into the new users table
+-- Insert data into the new users table, ensuring google_id is handled correctly
 INSERT INTO
     `__new_users` (
         "id",
@@ -69,7 +69,6 @@ INSERT INTO
         "password_hash",
         "name",
         "github_id",
-        "google_id",
         "avatar_url",
         "role_id",
         "createdAt",
@@ -81,7 +80,6 @@ SELECT
     "password_hash",
     "name",
     "github_id",
-    "google_id",
     "avatar_url",
     "role_id",
     "createdAt",
