@@ -15,6 +15,7 @@ const navigation = [
         content: [
             { label: "Profile", to: "/settings/profile", icon: "i-lucide-user" },
             { label: "Billing", to: "/settings/billing", icon: "i-lucide-credit-card" },
+            { label: "Storage", to: "/settings/storage", icon: "i-lucide-database" },
         ],
     },
 ];

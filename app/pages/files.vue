@@ -6,12 +6,12 @@ definePageMeta({
 
 const loading = ref(false);
 const { data: epocs, refresh } = await useFetch("/api/epocs");
-const { data: quota, refresh: refreshQuota } = await useFetch("/api/files/quota");
+const { data: used, refresh: refreshUsed } = await useFetch("/api/files/used");
 const { data: maxQuota, refresh: refreshMaxQuota } = await useFetch("/api/user/quota");
 
 async function refreshAll() {
     loading.value = true;
-    await Promise.all([refresh(), refreshQuota(), refreshMaxQuota()]);
+    await Promise.all([refresh(), refreshUsed(), refreshMaxQuota()]);
     loading.value = false;
 }
 </script>
@@ -32,9 +32,9 @@ async function refreshAll() {
             </div>
         </div>
         <div class="flex flex-col gap-2" v-if="maxQuota">
-            <UProgress v-model="quota" :max="maxQuota" color="neutral" />
+            <UProgress v-model="used" :max="maxQuota" color="neutral" />
             <span class="text-muted self-end">
-                {{ quota ? getSizeString(quota) : "0" }} / {{ getSizeString(maxQuota) }}</span
+                {{ used ? getSizeString(used) : "0" }} / {{ getSizeString(maxQuota) }}</span
             >
         </div>
         <div

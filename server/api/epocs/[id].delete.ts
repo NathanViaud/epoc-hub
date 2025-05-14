@@ -8,5 +8,7 @@ export default defineEventHandler(async (event) => {
         .returning();
 
     await hubBlob().del(deletedEpoc.file);
-    await hubBlob().del(deletedEpoc.image);
+    if (deletedEpoc.image) {
+        await hubBlob().del(deletedEpoc.image);
+    }
 });

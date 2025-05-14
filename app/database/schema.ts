@@ -12,7 +12,10 @@ export const epocs = sqliteTable("epocs", {
     user: text("user")
         .references(() => users.id, { onDelete: "cascade" })
         .notNull(),
-    createdAt: integer("createdAt", { mode: "timestamp" }).default(new Date()),
+    createdAt: integer("created_at", { mode: "timestamp" }).default(new Date()),
+    updatedAt: integer("updated_at", { mode: "timestamp" })
+        .default(new Date())
+        .$onUpdate(() => new Date()),
 });
 
 export const libraries = sqliteTable("libraries", {
