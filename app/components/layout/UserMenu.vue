@@ -28,7 +28,7 @@ const items: Ref<DropdownMenuItem[][]> = ref([
             label: "My account",
             avatar: {
                 src: computed(() => user.value?.avatarUrl),
-                icon: "i-lucide-user",
+                alt: computed(() => user.value?.name),
             },
             type: "label",
         },
@@ -56,7 +56,7 @@ const items: Ref<DropdownMenuItem[][]> = ref([
 <template>
     <UDropdownMenu :items="items" :ui="{ content: 'w-48' }">
         <UButton
-            :avatar="{ src: user.avatarUrl }"
+            :avatar="{ src: user.avatarUrl, alt: user.name }"
             :label="collapsed ? undefined : user.name"
             variant="ghost"
             size="lg"
