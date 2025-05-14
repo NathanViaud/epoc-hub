@@ -73,6 +73,8 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 }
 
 async function handleFileChange(event: Event) {
+    open.value = true;
+
     const files = (event.target as HTMLInputElement).files;
     state.file = files?.[0];
     if (!state.file) return;
@@ -123,21 +125,25 @@ onBeforeUnmount(() => {
         URL.revokeObjectURL(state.imageUrl);
     }
 });
+
+const input = useTemplateRef("input");
+function onFileOpen() {
+    input.value?.click();
+}
 </script>
 
 <template>
-    <UModal v-model:open="open">
-        <UButton size="lg" label="Upload" icon="i-lucide-upload" />
-        <template #content>
-            <UCard>
-                <template #header>
-                    <h2>Upload Files</h2>
-                </template>
+    <div>
+        <UButton size="lg" label="Upload" icon="i-lucide-upload" @click="onFileOpen" />
+        <input ref="input" type="file" @change="handleFileChange" name="file" accept=".epoc" class="hidden" />
+        <UModal v-model:open="open">
+            <template #header>
+                <h2>Upload Files</h2>
+            </template>
+            <template #body>
                 <UForm ref="form" loading-auto :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-                    <UFormField label="File" name="file">
-                        <UInput type="file" @change="handleFileChange" name="file" accept=".epoc" class="w-full" />
-                    </UFormField>
-                    <div v-if="state.title" class="space-y-3 mt-5">
+                    <UButton block label="Change file" icon="i-lucide-upload" @click="onFileOpen" />
+                    <div v-if="state.title" class="space-y-3">
                         <USeparator />
                         <h2>Preview</h2>
 
@@ -145,7 +151,7 @@ onBeforeUnmount(() => {
                     </div>
                     <UButton block type="submit" label="Upload" icon="i-lucide-upload" :loading="form?.loading" />
                 </UForm>
-            </UCard>
-        </template>
-    </UModal>
+            </template>
+        </UModal>
+    </div>
 </template>

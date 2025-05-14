@@ -32,6 +32,11 @@ export default defineAppConfig({
                 root: "shadow dark:bg-muted",
             },
         },
+        modal: {
+            slots: {
+                content: "shadow dark:bg-muted",
+            },
+        },
         input: {
             defaultVariants: {
                 color: "neutral",
