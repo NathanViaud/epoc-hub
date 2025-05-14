@@ -33,6 +33,7 @@ export const users = sqliteTable("users", {
     passwordHash: text("password_hash"),
     name: text("name").notNull(),
     github_id: text("github_id").unique(),
+    google_id: text("google_id").unique(),
     avatarUrl: text("avatar_url"),
     roleId: integer("role_id")
         .references(() => roles.id)

@@ -39,7 +39,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
     <div>
         <UCard class="mx-auto max-w-xl">
             <template #header>
-                <h2 class="text-2xl font-bold">Login</h2>
+                <h2 class="text-2xl font-bold">Log in</h2>
             </template>
 
             <div class="space-y-4">
@@ -51,7 +51,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                         <UInput v-model="state.password" type="password" class="w-full" />
                     </UFormField>
 
-                    <UButton block type="submit"> Submit </UButton>
+                    <UButton block type="submit" size="lg"> Log in</UButton>
                 </UForm>
 
                 <USeparator label="Or" />
@@ -59,9 +59,21 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                 <UButton
                     variant="subtle"
                     color="neutral"
-                    label="Login with github"
+                    label="Log in with GitHub"
                     to="/api/auth/github"
                     icon="i-simple-icons-github"
+                    size="lg"
+                    external
+                    block
+                />
+
+                <UButton
+                    variant="subtle"
+                    color="neutral"
+                    label="Log in with Google"
+                    to="/api/auth/google"
+                    icon="i-simple-icons-google"
+                    size="lg"
                     external
                     block
                 />
