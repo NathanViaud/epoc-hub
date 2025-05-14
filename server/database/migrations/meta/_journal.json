@@ -127,6 +127,34 @@
       "when": 1747122608307,
       "tag": "0017_exotic_pestilence",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "6",
+      "when": 1747231457583,
+      "tag": "0018_serious_shinko_yamashiro",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "6",
+      "when": 1747231525653,
+      "tag": "0019_nebulous_rocket_racer",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "6",
+      "when": 1747232149932,
+      "tag": "0020_lean_jazinda",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "6",
+      "when": 1747232487823,
+      "tag": "0021_narrow_romulus",
+      "breakpoints": true
     }
   ]
 }

@@ -65,7 +65,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                         <UInput v-model="state.password" type="password" class="w-full" />
                     </UFormField>
 
-                    <UButton block type="submit"> Submit </UButton>
+                    <UButton block type="submit" size="lg"> Submit </UButton>
                 </UForm>
 
                 <USeparator label="Or" />
@@ -76,6 +76,17 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                     label="Login with github"
                     to="/api/auth/github"
                     icon="i-simple-icons-github"
+                    size="lg"
+                    external
+                    block
+                />
+                <UButton
+                    variant="subtle"
+                    color="neutral"
+                    label="Log in with Google"
+                    to="/api/auth/google"
+                    icon="i-simple-icons-google"
+                    size="lg"
                     external
                     block
                 />
