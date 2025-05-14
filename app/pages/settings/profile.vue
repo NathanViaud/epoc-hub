@@ -44,7 +44,7 @@ const deleteModal = ref(false);
             <ul class="w-full space-y-4">
                 <li class="flex items-center">
                     <span class="flex-1 font-semibold">Profile picture</span>
-                    <UAvatar :src="user.avatarUrl" icon="i-lucide-user" size="lg" />
+                    <UAvatar :src="user.avatarUrl" :alt="user.name" size="lg" />
                 </li>
 
                 <USeparator />

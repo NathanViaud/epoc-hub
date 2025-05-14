@@ -10,10 +10,16 @@ export default eventHandler(async (event) => {
     const { user } = await requireUserSession(event);
     const { title, file, image } = await readValidatedBody(event, bodySchema.parse);
 
-    return await useDrizzle().insert(tables.epocs).values({
-        title,
-        image,
-        file,
-        user: user.id,
-    });
+    return useDrizzle()
+        .insert(tables.epocs)
+        .values({
+            title,
+            image,
+            file,
+            user: user.id,
+        })
+        .onConflictDoUpdate({
+            target: tables.epocs.file,
+            set: { title, image },
+        });
 });

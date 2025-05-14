@@ -1,8 +1,6 @@
 export default eventHandler(async (event) => {
     const { user } = await requireUserSession(event);
-
     const remainingQuota = await getRemainingQuota(user);
-
     const query = getQuery(event);
 
     const { uploadId } = query;
