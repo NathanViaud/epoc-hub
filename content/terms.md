@@ -1,8 +1,10 @@
 # Terms of service
 
+**Effective Date: 14 May 2025**
+
 ## 1.Acceptance of terms
 
-By accessing or using ePhost, you agree to be bound by these Terms of service. If you do not agree to these Terms, you may not use our services.
+By accessing or using ePoc Host, you agree to be bound by these Terms of service. If you do not agree to these Terms, you may not use our services.
 
 ## 2. Description of service
 
@@ -47,6 +49,6 @@ These terms shall be governed by and construed in accordance with the laws of Fr
 
 Our service reserves the right to modify these Terms at any time. We notify you of any changes by posting the new Terms on our website. Your continued use of the service after such changes constitutes your acceptance of the new Terms.
 
-## 12. Contact information
+<!-- ## 12. Contact information
 
-If you have any question about these Terms, please contact us at .
+If you have any question about these Terms, please contact us at . -->

@@ -1,8 +1,8 @@
 # Privacy policy
 
-**Effective Date: [Insert Date]**
+**Effective Date: 14 May 2025**
 
-At ePhost, we are committed to protecting your privacy and ensuring the security of your personal data in compliance with the General Data Protection Regulation (GDPR). This Privacy policy explains how we collect, use, disclose, and safeguard your information when you use our services.
+At ePoc Host, we are committed to protecting your privacy and ensuring the security of your personal data in compliance with the General Data Protection Regulation (GDPR). This Privacy policy explains how we collect, use, disclose, and safeguard your information when you use our services.
 
 ## 1. Information We Collect
 
@@ -80,6 +80,7 @@ In the event of a data breach that is likely to result in a high risk to your ri
 ## 12. Complaints to Supervisory Authority
 
 If you believe that we have not complied with your data protection rights, you have the right to lodge a complaint with the supervisory authority. In France, the supervisory authority is the Commission Nationale de l'Informatique et des Libertés (CNIL). You can find more information on their website: [www.cnil.fr](https://www.cnil.fr)
-## 13. Contact Us
 
-If you have any questions or concerns about this Privacy Policy, please contact us at [Your Contact Email].
+<!-- ## 13. Contact Us
+
+If you have any questions or concerns about this Privacy Policy, please contact us at [Your Contact Email]. -->
