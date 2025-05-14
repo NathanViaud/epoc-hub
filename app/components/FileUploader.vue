@@ -29,8 +29,13 @@ const state = reactive<Partial<Schema>>({
 async function onSubmit(event: FormSubmitEvent<Schema>) {
     const { file, title, imageFile } = event.data;
     try {
-        const upload = useUpload("/api/files", { method: "PUT" });
-        const uploadedFile = await upload(file);
+        const upload = useMultipartUpload("/api/files/multipart");
+        const { progress, completed, abort } = upload(file);
+        const uploadedFile = await completed;
+
+        if (!uploadedFile) {
+            throw new Error("File is too large");
+        }
 
         let uploadedImage;
         if (imageFile) {
