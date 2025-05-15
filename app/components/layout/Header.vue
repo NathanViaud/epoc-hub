@@ -5,8 +5,8 @@
                 <NuxtLink to="/" class="font-semibold"> ePoc Host </NuxtLink>
                 <AuthState #default="{ loggedIn }">
                     <div v-if="!loggedIn" class="flex gap-2">
-                        <UButton label="Log in" variant="subtle" to="/login" />
-                        <UButton label="Sign up" to="/register" />
+                        <UButton label="Log in" variant="subtle" to="/auth?tab=login" />
+                        <UButton label="Sign up" to="/auth?tab=register" />
                     </div>
                     <UButton v-else label="Go to app" to="/files" />
                 </AuthState>

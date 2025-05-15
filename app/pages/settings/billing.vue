@@ -17,17 +17,6 @@ const plans = [
             },
         ],
     },
-    {
-        id: "advanced",
-        name: "Advanced storage",
-        price: "Soon",
-        features: [
-            {
-                label: "10GB of storage",
-                icon: "i-lucide-cloud-upload",
-            },
-        ],
-    },
 ];
 </script>
 

@@ -19,7 +19,7 @@ const isDark = computed({
 
 function logout() {
     clear();
-    navigateTo("/login");
+    navigateTo("/auth");
 }
 
 const items: Ref<DropdownMenuItem[][]> = ref([
