@@ -65,7 +65,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
                         <UInput v-model="state.password" type="password" class="w-full" />
                     </UFormField>
 
-                    <UButton block type="submit" size="lg"> Submit </UButton>
+                    <UButton block type="submit" size="lg"> Sign up</UButton>
                 </UForm>
 
                 <USeparator label="Or" />

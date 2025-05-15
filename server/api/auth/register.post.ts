@@ -14,7 +14,9 @@ export default eventHandler(async (event) => {
             email,
             passwordHash: await hashPassword(password),
             name,
-        });
+        })
+        .returning()
+        .get();
 
     await setUserSession(event, { user });
 });
