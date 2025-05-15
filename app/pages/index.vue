@@ -14,8 +14,8 @@ definePageMeta({
                     hassles with direct download links.
                 </p>
                 <div class="flex gap-4">
-                    <UButton block label="Sign up" to="/register" size="xl" />
-                    <UButton block label="Login" to="/login" size="xl" variant="outline" />
+                    <UButton block label="Sign up" to="/auth?tab=register" size="xl" />
+                    <UButton block label="Log in" to="/auth?tab=login" size="xl" variant="outline" />
                 </div>
             </div>
 
@@ -23,10 +23,6 @@ definePageMeta({
                 <img src="/hero/hero.jpeg" alt="Hero image" class="dark:hidden" />
                 <img src="/hero/hero_dark.jpeg" alt="Hero image" class="hidden dark:block" />
             </UCard>
-        </section>
-        <section class="space-y-5">
-            <h2 class="text-4xl font-bold">Pricing</h2>
-            <HeroPricing />
         </section>
     </div>
 </template>
