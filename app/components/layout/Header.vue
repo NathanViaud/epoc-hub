@@ -1,16 +1,22 @@
 <template>
-    <header class="border-b border-(--ui-border) sticky top-0 backdrop-blur-lg bg-(--ui-bg)/60">
-        <UContainer>
+    <header class="border-b sticky top-0 backdrop-blur-lg bg-background/60">
+        <LayoutContainer>
             <div class="flex items-center justify-between py-2">
-                <NuxtLink to="/" class="font-semibold"> ePoc Host </NuxtLink>
+                <NuxtLink to="/" class="font-medium"> ePoc Hub </NuxtLink>
                 <AuthState #default="{ loggedIn }">
                     <div v-if="!loggedIn" class="flex gap-2">
-                        <UButton label="Log in" variant="subtle" to="/auth?tab=login" />
-                        <UButton label="Sign up" to="/auth?tab=register" />
+                        <Button variant="outline" as-child>
+                            <NuxtLink to="/auth?tab=login"> Log in </NuxtLink>
+                        </Button>
+                        <Button as-child>
+                            <NuxtLink to="/auth?tab=register"> Sign up </NuxtLink>
+                        </Button>
                     </div>
-                    <UButton v-else label="Go to app" to="/files" />
+                    <Button v-else as-child>
+                        <NuxtLink to="/files">Go to app</NuxtLink>
+                    </Button>
                 </AuthState>
             </div>
-        </UContainer>
+        </LayoutContainer>
     </header>
 </template>

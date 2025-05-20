@@ -1,20 +1,19 @@
 <script setup lang="ts">
-import { z } from "zod";
-import type { FormSubmitEvent } from "@nuxt/ui";
-import { registerSchema } from "~/database/schema";
 import type { FetchError } from "ofetch";
+import { toast } from "vue-sonner";
+import { toTypedSchema } from "@vee-validate/zod";
+import { registerSchema } from "~/database/schema";
+import { useForm } from "vee-validate";
+import { GoogleIcon, GitHubIcon } from "vue3-simple-icons";
 
-type Schema = z.output<typeof registerSchema>;
+const formSchema = toTypedSchema(registerSchema);
 
-const state = reactive<Partial<Schema>>({
-    email: undefined,
-    password: undefined,
-    name: undefined,
+const form = useForm({
+    validationSchema: formSchema,
 });
 
-const toast = useToast();
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-    const { email, password, name } = event.data;
+const onSubmit = form.handleSubmit(async (values) => {
+    const { email, name, password } = values;
     try {
         await $fetch("/api/auth/register", {
             method: "POST",
@@ -31,60 +30,75 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         await navigateTo("/files");
     } catch (error) {
         if ((error as FetchError).status === 409) {
-            toast.add({ title: "Email already exists", color: "error" });
+            toast.error("Email already exists");
             return;
         }
-        toast.add({ title: "An error occurred", color: "error" });
+        toast.error("An error occurred");
         console.error(error);
     }
-}
+});
 </script>
 
 <template>
-    <UCard>
-        <template #header>
-            <h2 class="text-2xl font-bold">Sign up</h2>
-        </template>
+    <Card>
+        <CardHeader>
+            <CardTitle class="text-2xl">Sign up</CardTitle>
+        </CardHeader>
+        <CardContent>
+            <form @submit="onSubmit" class="grid gap-6">
+                <FormField v-slot="{ componentField }" name="email">
+                    <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                            <Input type="email" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
 
-        <div class="space-y-4">
-            <UForm :schema="registerSchema" :state="state" class="space-y-4" @submit="onSubmit">
-                <UFormField label="Email" name="email">
-                    <UInput v-model="state.email" class="w-full" />
-                </UFormField>
+                <FormField v-slot="{ componentField }" name="name">
+                    <FormItem>
+                        <FormLabel>Name</FormLabel>
+                        <FormControl>
+                            <Input type="text" v-bind="componentField" />
+                        </FormControl>
+                        <FormDescription> Your display name </FormDescription>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
 
-                <UFormField label="Name" name="name" description="Your name or username">
-                    <UInput v-model="state.name" class="w-full" />
-                </UFormField>
+                <FormField v-slot="{ componentField }" name="password">
+                    <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                            <Input type="password" v-bind="componentField" />
+                        </FormControl>
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
 
-                <UFormField label="Password" name="password">
-                    <UInput v-model="state.password" type="password" class="w-full" />
-                </UFormField>
+                <Button type="submit">Sign up</Button>
+            </form>
 
-                <UButton block type="submit" size="lg"> Sign up</UButton>
-            </UForm>
+            <Separator label="Or" class="my-6" />
 
-            <USeparator label="Or" />
-
-            <UButton
-                variant="subtle"
-                color="neutral"
-                label="Login with github"
-                to="/api/auth/github"
-                icon="i-simple-icons-github"
-                size="lg"
-                external
-                block
-            />
-            <UButton
-                variant="subtle"
-                color="neutral"
-                label="Log in with Google"
-                to="/api/auth/google"
-                icon="i-simple-icons-google"
-                size="lg"
-                external
-                block
-            />
-        </div>
-    </UCard>
+            <div class="flex flex-col gap-4">
+                <Button variant="secondary" class="flex-1" as-child>
+                    <NuxtLink to="/api/auth/github" external class="inline-flex items-center gap-2">
+                        <GitHubIcon /> Log in with GitHub
+                    </NuxtLink>
+                </Button>
+                <Button
+                    :disabled="!form.meta.value.valid || form.isSubmitting"
+                    variant="secondary"
+                    class="flex-1"
+                    as-child
+                >
+                    <NuxtLink to="/api/auth/google" external class="inline-flex items-center gap-2">
+                        <GoogleIcon /> Log in with Google
+                    </NuxtLink>
+                </Button>
+            </div>
+        </CardContent>
+    </Card>
 </template>

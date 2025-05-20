@@ -1,11 +1,11 @@
 <template>
     <div class="flex flex-col gap-12 min-h-screen">
         <LayoutHeader />
-        <UContainer class="flex-1">
+        <LayoutContainer class="flex-1">
             <slot />
-        </UContainer>
-        <UContainer>
+        </LayoutContainer>
+        <LayoutContainer>
             <LayoutFooter />
-        </UContainer>
+        </LayoutContainer>
     </div>
 </template>
