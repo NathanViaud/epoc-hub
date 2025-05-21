@@ -26,7 +26,7 @@ const items = ref([
 <template>
     <ClientOnly>
         <Select v-model="colorMode.preference">
-            <SelectTrigger class="bg-background! transition hover:bg-input! border-none">
+            <SelectTrigger class="bg-background! transition hover:bg-input! border-none shadow-none">
                 <SelectValue>
                     <Component :is="selected?.icon" />
                     {{ selected?.label }}

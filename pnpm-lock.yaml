@@ -17,6 +17,9 @@ importers:
       '@nuxthub/core':
         specifier: 0.8.25
         version: 0.8.25(db0@0.3.2(better-sqlite3@11.10.0)(drizzle-orm@0.43.1(@cloudflare/workers-types@4.20250515.0)(better-sqlite3@11.10.0)))(ioredis@5.6.1)(magicast@0.3.5)(vite@6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.0))
+      '@nuxtjs/color-mode':
+        specifier: 3.5.2
+        version: 3.5.2(magicast@0.3.5)
       '@tailwindcss/vite':
         specifier: ^4.1.7
         version: 4.1.7(vite@6.3.5(@types/node@22.15.18)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.39.1)(yaml@2.8.0))
@@ -891,6 +894,9 @@ packages:
 
   '@nuxthub/core@0.8.25':
     resolution: {integrity: sha512-cR46Y9/sevODxZhtDrfBqJ+Uyti0owDUDZWwFxqSExyLcjdQKyOXXc0+B3Y5kfi6VUrt5xVeJnHdBlMBZO1RIg==}
+
+  '@nuxtjs/color-mode@3.5.2':
+    resolution: {integrity: sha512-cC6RfgZh3guHBMLLjrBB2Uti5eUoGM9KyauOaYS9ETmxNWBMTvpgjvSiSJp1OFljIXPIqVTJ3xtJpSNZiO3ZaA==}
 
   '@nuxtjs/mdc@0.17.0':
     resolution: {integrity: sha512-5HFJ2Xatl4oSfEZuYRJhzYhVHNvb31xc9Tu/qfXpRIWeQsQphqjaV3wWB5VStZYEHpTw1i6Hzyz/ojQZVl4qPg==}
@@ -6405,6 +6411,15 @@ snapshots:
       - magicast
       - uploadthing
       - vite
+
+  '@nuxtjs/color-mode@3.5.2(magicast@0.3.5)':
+    dependencies:
+      '@nuxt/kit': 3.17.3(magicast@0.3.5)
+      pathe: 1.1.2
+      pkg-types: 1.3.1
+      semver: 7.7.2
+    transitivePeerDependencies:
+      - magicast
 
   '@nuxtjs/mdc@0.17.0(magicast@0.3.5)':
     dependencies:
