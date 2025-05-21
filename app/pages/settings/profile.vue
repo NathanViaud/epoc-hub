@@ -37,7 +37,7 @@ async function deleteAccount() {
         await fetch();
         toast.info("Your account was successfully deleted");
 
-        await navigateTo("/auth");
+        await navigateTo("/login");
     } catch (e) {
         toast.error("An error occured during account deletion");
     }

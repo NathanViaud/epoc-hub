@@ -15,7 +15,7 @@ const isDark = computed({
 
 function logout() {
     clear();
-    navigateTo("/auth");
+    navigateTo("/login");
 }
 </script>
 

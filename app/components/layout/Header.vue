@@ -6,10 +6,10 @@
                 <AuthState #default="{ loggedIn }">
                     <div v-if="!loggedIn" class="flex gap-2">
                         <Button variant="outline" as-child>
-                            <NuxtLink to="/auth?tab=login"> Log in </NuxtLink>
+                            <NuxtLink to="/login"> Log in </NuxtLink>
                         </Button>
                         <Button as-child>
-                            <NuxtLink to="/auth?tab=register"> Sign up </NuxtLink>
+                            <NuxtLink to="/register"> Sign up </NuxtLink>
                         </Button>
                     </div>
                     <Button v-else as-child>

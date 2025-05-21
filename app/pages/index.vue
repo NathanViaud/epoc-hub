@@ -15,10 +15,10 @@ definePageMeta({
                 </p>
                 <div class="flex gap-4">
                     <Button size="lg" class="flex-1" as-child>
-                        <NuxtLink to="/auth?tab=register"> Sign up </NuxtLink>
+                        <NuxtLink to="/register"> Sign up </NuxtLink>
                     </Button>
                     <Button size="lg" class="flex-1" variant="outline" as-child>
-                        <NuxtLink to="/auth?tab=login"> Log in </NuxtLink>
+                        <NuxtLink to="/login"> Log in </NuxtLink>
                     </Button>
                 </div>
             </div>
