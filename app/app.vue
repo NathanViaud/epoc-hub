@@ -1,7 +1,16 @@
+<script setup lang="ts">
+const colorMode = useColorMode();
+</script>
+
 <template>
-    <UApp>
-        <NuxtLayout>
-            <NuxtPage />
-        </NuxtLayout>
-    </UApp>
+    <NuxtLoadingIndicator />
+
+    <NuxtLayout>
+        <NuxtPage />
+    </NuxtLayout>
+
+    <ClientOnly>
+        <!-- @vue-expect-error -->
+        <Toaster rich-colors :theme="colorMode.value" />
+    </ClientOnly>
 </template>

@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import { toast } from "vue-sonner";
+import { Library, Copy, ExternalLink, Trash, Share } from "lucide-vue-next";
+
 definePageMeta({
     title: "My library",
 });
 
 const { data: library, refresh: refresh } = await useFetch("/api/library/self");
-
-const toast = useToast();
 
 const baseUrl = ref("");
 onMounted(() => {
@@ -18,7 +19,7 @@ async function copyUrl() {
     copied.value = true;
     if (!library.value) return;
     await navigator.clipboard.writeText(libraryUrl.value);
-    toast.add({ title: "Success", description: "Link copied to clipboard", color: "success" });
+    toast.success("Link copied to clipboard");
 
     setTimeout(() => {
         copied.value = false;
@@ -30,10 +31,10 @@ async function publishLibrary() {
         await $fetch("/api/library", {
             method: "POST",
         });
-        toast.add({ title: "Library published successfully", color: "success" });
+        toast.success("Library published successfully");
         await refresh();
     } catch (e) {
-        toast.add({ title: "Error while publishing library", color: "error" });
+        toast.error("Error while publishing library");
     }
 }
 
@@ -45,9 +46,9 @@ async function removeLibrary() {
             method: "DELETE",
         });
         await refresh();
-        toast.add({ title: "Your library has been removed", color: "info" });
+        toast.info("Your library has been removed");
     } catch (e) {
-        toast.add({ title: "Your library could not be removed", color: "error" });
+        toast.error("Your library could not be removed");
     }
 }
 </script>
@@ -55,67 +56,57 @@ async function removeLibrary() {
 <template>
     <div class="space-y-5 w-full">
         <LayoutPageTitle />
-        <UCard :ui="{ body: 'flex flex-col gap-2 items-center' }" class="w-full max-w-4xl mx-auto">
-            <template #header>
-                <div class="flex items-center gap-2">
-                    <UIcon name="i-lucide-library" class="text-muted size-5" />
-                    <h2 class="text-xl">My library</h2>
-                </div>
-                <p class="text-muted">Publish your library to create a public web page listing your ePocs.</p>
-            </template>
-            <ul class="w-full space-y-4">
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Status</span>
-                    <div class="flex items-center gap-2">
-                        <UChip :color="library ? 'success' : 'error'" standalone inset class="relative" />
-                        <UChip
-                            v-if="library"
-                            color="success"
-                            standalone
-                            inset
-                            :ui="{ base: 'animate-ping' }"
-                            class="absolute"
-                        />
-                        {{ library ? "Published" : "Not published" }}
-                    </div>
-                </li>
-
-                <USeparator />
-
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Link</span>
-                    <ClientOnly v-if="library">
-                        <UButtonGroup>
-                            <UButton
-                                :label="libraryUrl"
-                                variant="outline"
-                                trailing-icon="i-lucide-external-link"
-                                :to="libraryUrl"
-                                target="_blank"
-                                external
+        <Card class="max-w-4xl mx-auto">
+            <CardHeader>
+                <CardTitle class="flex items-center gap-2 text-xl">
+                    <Library class="text-muted-foreground" /> My library
+                </CardTitle>
+                <CardDescription>Manage your library here</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Status</span>
+                        <div class="flex items-center gap-2">
+                            <div
+                                class="rounded-full size-2 relative"
+                                :class="[library ? 'bg-emerald-500' : 'bg-red-500']"
                             />
-                            <UButton
-                                @click="copyUrl"
-                                variant="outline"
-                                :icon="copied ? 'i-lucide-copy-check' : 'i-lucide-copy'"
-                            />
-                        </UButtonGroup>
-                    </ClientOnly>
-                    <p v-else>The library is not published yet</p>
-                </li>
+                            <div v-if="library" class="rounded-full size-2 bg-emerald-500 absolute animate-ping" />
 
-                <USeparator />
+                            {{ library ? "Published" : "Not published" }}
+                        </div>
+                    </li>
 
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Action</span>
-                    <UButton
-                        :label="library ? 'Remove library' : 'Publish library'"
-                        :icon="library ? 'i-lucide-trash' : 'i-lucide-share'"
-                        :color="library ? 'error' : 'neutral'"
-                        @click="library ? removeLibrary() : publishLibrary()"
-                    />
-                </li>
-            </ul>
-        </UCard>
+                    <Separator />
+
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Link</span>
+                        <ClientOnly v-if="library">
+                            <Button variant="outline" class="rounded-e-none" as-child>
+                                <NuxtLink :to="libraryUrl" target="_blank">{{ libraryUrl }} <ExternalLink /></NuxtLink>
+                            </Button>
+                            <Button @click="copyUrl" size="icon" variant="outline" class="border-s-0 rounded-s-none">
+                                <Copy />
+                            </Button>
+                        </ClientOnly>
+                        <p v-else>The library is not published yet</p>
+                    </li>
+
+                    <Separator />
+
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Action</span>
+                        <Button
+                            @click="library ? removeLibrary() : publishLibrary()"
+                            :variant="library ? 'destructive' : 'default'"
+                        >
+                            <component :is="library ? Trash : Share" />
+                            {{ library ? "Remove library" : "Publish library" }}
+                        </Button>
+                    </li>
+                </ul>
+            </CardContent>
+        </Card>
     </div>
 </template>

@@ -1,24 +1,19 @@
 <script setup lang="ts">
-import { z } from "zod";
-import type { FormSubmitEvent } from "@nuxt/ui";
-import { loginSchema } from "~/database/schema";
+import { GitHubIcon, GoogleIcon } from "vue3-simple-icons";
+import { toast } from "vue-sonner";
 
-type Schema = z.output<typeof loginSchema>;
-
-const state = reactive<Partial<Schema>>({
+const state = reactive({
     email: undefined,
     password: undefined,
 });
 
-const toast = useToast();
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-    const { email, password } = event.data;
+async function login() {
     try {
         await $fetch("/api/auth/login", {
             method: "POST",
             body: {
-                email,
-                password,
+                email: state.email,
+                password: state.password,
             },
         });
         const { fetch } = useUserSession();
@@ -26,52 +21,46 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 
         await navigateTo("/files");
     } catch (error) {
-        toast.add({ title: "Invalid credentials", color: "error" });
+        toast.error("Invalid credentials");
     }
 }
 </script>
 
 <template>
-    <UCard>
-        <template #header>
-            <h2 class="text-2xl font-bold">Log in</h2>
-        </template>
+    <Card>
+        <CardHeader>
+            <CardTitle class="text-2xl">Log in</CardTitle>
+        </CardHeader>
 
-        <div class="space-y-4">
-            <UForm :schema="loginSchema" :state="state" class="space-y-4" @submit="onSubmit">
-                <UFormField label="Email" name="email">
-                    <UInput v-model="state.email" class="w-full" />
-                </UFormField>
-                <UFormField label="Password" name="password">
-                    <UInput v-model="state.password" type="password" class="w-full" />
-                </UFormField>
+        <CardContent>
+            <form @submit.prevent="login" class="grid gap-6">
+                <div class="grid gap-2">
+                    <Label for="email">Email</Label>
+                    <Input v-model="state.email" id="email" type="email" />
+                </div>
 
-                <UButton block type="submit" size="lg"> Log in</UButton>
-            </UForm>
+                <div class="grid gap-2">
+                    <Label for="password">Password</Label>
+                    <Input v-model="state.password" id="password" type="password" />
+                </div>
 
-            <USeparator label="Or" />
+                <Button type="submit">Log in</Button>
+            </form>
 
-            <UButton
-                variant="subtle"
-                color="neutral"
-                label="Log in with GitHub"
-                to="/api/auth/github"
-                icon="i-simple-icons-github"
-                size="lg"
-                external
-                block
-            />
+            <Separator label="Or" class="my-6" />
 
-            <UButton
-                variant="subtle"
-                color="neutral"
-                label="Log in with Google"
-                to="/api/auth/google"
-                icon="i-simple-icons-google"
-                size="lg"
-                external
-                block
-            />
-        </div>
-    </UCard>
+            <div class="flex flex-col gap-4">
+                <Button variant="secondary" class="flex-1" as-child>
+                    <NuxtLink to="/api/auth/github" external class="inline-flex items-center gap-2">
+                        <GitHubIcon /> Log in with GitHub
+                    </NuxtLink>
+                </Button>
+                <Button variant="secondary" class="flex-1" as-child>
+                    <NuxtLink to="/api/auth/google" external class="inline-flex items-center gap-2">
+                        <GoogleIcon /> Log in with Google
+                    </NuxtLink>
+                </Button>
+            </div>
+        </CardContent>
+    </Card>
 </template>

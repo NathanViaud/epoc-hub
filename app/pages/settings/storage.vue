@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { Database, BrushCleaning, Loader } from "lucide-vue-next";
+import { toast } from "vue-sonner";
+
 definePageMeta({
     middleware: ["authenticated"],
     title: "Storage",
@@ -6,7 +9,6 @@ definePageMeta({
 
 const { data: used, refresh } = await useFetch("/api/files/used");
 
-const toast = useToast();
 const loading = ref(false);
 async function cleanup() {
     loading.value = true;
@@ -15,14 +17,10 @@ async function cleanup() {
             method: "POST",
         });
 
-        toast.add({
-            title: "Success",
-            description: deleted ? `${deleted} files deleted` : "No unused files found",
-            color: "success",
-        });
+        toast.success(deleted ? `${deleted} files deleted` : "No unused files found");
         await refresh();
     } catch (e) {
-        toast.add({ title: "Error during cleanup", color: "error" });
+        toast.error("Error during cleanup");
     }
     loading.value = false;
 }
@@ -31,32 +29,30 @@ async function cleanup() {
 <template>
     <div class="space-y-5 w-full">
         <LayoutPageTitle />
-        <UCard class="w-full max-w-4xl mx-auto">
-            <template #header>
-                <div class="flex items-center gap-2">
-                    <UIcon name="i-lucide-database" class="text-muted size-5" />
-                    <h2 class="text-xl">Storage</h2>
-                </div>
-            </template>
-            <ul class="w-full space-y-4">
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Used space</span>
-                    <span>{{ used ? getSizeString(used) : 0 }}</span>
-                </li>
+        <Card class="max-w-4xl mx-auto">
+            <CardHeader>
+                <CardTitle class="flex items-center gap-2 text-xl">
+                    <Database class="text-muted-foreground" /> Storage
+                </CardTitle>
+                <CardDescription>Informations about your currently used storage</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Used space</span>
+                        <span>{{ used ? getSizeString(used) : 0 }}</span>
+                    </li>
 
-                <USeparator />
-                <li class="flex items-center">
-                    <div class="space-y-2 flex-1">
-                        <span class="font-semibold">Cleanup</span>
-                        <p class="text-muted text-sm">
-                            Fix storage mismatches by deleting files not linked to your library.
-                            <br />
-                            This can happen if an error occurs on our end.
-                        </p>
-                    </div>
-                    <UButton :loading="loading" icon="i-lucide-brush-cleaning" label="Cleanup" @click="cleanup" />
-                </li>
-            </ul>
-        </UCard>
+                    <Separator />
+
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Cleanup</span>
+                        <Button @click="cleanup" :disabled="loading">
+                            <BrushCleaning v-if="!loading" /> <Loader v-else class="animate-spin" />Cleanup
+                        </Button>
+                    </li>
+                </ul>
+            </CardContent>
+        </Card>
     </div>
 </template>

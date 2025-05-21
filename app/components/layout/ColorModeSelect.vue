@@ -1,26 +1,44 @@
 <script setup lang="ts">
+import { Monitor, Sun, Moon } from "lucide-vue-next";
+
+const colorMode = useColorMode();
+const selected = computed(() => items.value.find((item) => item.value === colorMode.value));
+
 const items = ref([
     {
         label: "System",
         value: "system",
-        icon: "i-lucide-monitor",
+        icon: Monitor,
     },
     {
         label: "Light",
         value: "light",
-        icon: "i-lucide-sun",
+        icon: Sun,
     },
     {
         label: "Dark",
         value: "dark",
-        icon: "i-lucide-moon",
+        icon: Moon,
     },
 ]);
-
-const colorMode = useColorMode();
-const icon = computed(() => items.value.find((item) => item.value === colorMode.value)?.icon);
 </script>
 
 <template>
-    <USelect v-model="colorMode.preference" :items="items" :icon="icon" variant="ghost" />
+    <ClientOnly>
+        <Select v-model="colorMode.preference">
+            <SelectTrigger class="bg-background! transition hover:bg-input! border-none">
+                <SelectValue>
+                    <Component :is="selected?.icon" />
+                    {{ selected?.label }}
+                </SelectValue>
+            </SelectTrigger>
+            <SelectContent>
+                <SelectGroup>
+                    <SelectItem v-for="item of items" :value="item.value">
+                        <Component :is="item.icon" /> {{ item.label }}
+                    </SelectItem>
+                </SelectGroup>
+            </SelectContent>
+        </Select>
+    </ClientOnly>
 </template>

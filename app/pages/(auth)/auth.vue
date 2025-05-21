@@ -1,46 +1,21 @@
 <script setup lang="ts">
-import type { TabsItem } from "@nuxt/ui";
-
 definePageMeta({
     layout: "fullpage",
-});
-
-const route = useRoute();
-const router = useRouter();
-
-const items: TabsItem[] = [
-    {
-        label: "Log in",
-        value: "login",
-        slot: "login",
-    },
-    {
-        label: "Sign up",
-        value: "register",
-        slot: "register",
-    },
-];
-
-const active = computed({
-    get() {
-        return (route.query.tab as string) || "login";
-    },
-    set(tab) {
-        router.push({
-            path: "/auth",
-            query: { tab },
-        });
-    },
 });
 </script>
 
 <template>
-    <UTabs v-model="active" :items="items" class="w-full max-w-2xl mx-auto" color="neutral" :ui="{ root: 'gap-8' }">
-        <template #login>
+    <Tabs default-value="login" class="w-full max-w-2xl mx-auto">
+        <TabsList class="grid w-full grid-cols-2">
+            <TabsTrigger value="login">Log in</TabsTrigger>
+            <TabsTrigger value="register">Sign up</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="login">
             <AuthLogin />
-        </template>
-        <template #register>
+        </TabsContent>
+        <TabsContent value="register">
             <AuthRegister />
-        </template>
-    </UTabs>
+        </TabsContent>
+    </Tabs>
 </template>
