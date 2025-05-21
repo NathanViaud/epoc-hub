@@ -1,9 +1,5 @@
 <script setup lang="ts">
-import type { DropdownMenuItem } from "@nuxt/ui";
-
-defineProps<{
-    collapsed?: boolean;
-}>();
+import { ChevronsUpDown, Sun, Moon, LogOut } from "lucide-vue-next";
 
 const { user, clear } = useUserSession();
 
@@ -21,47 +17,45 @@ function logout() {
     clear();
     navigateTo("/auth");
 }
-
-const items: Ref<DropdownMenuItem[][]> = ref([
-    [
-        {
-            label: "My account",
-            avatar: {
-                src: computed(() => user.value?.avatarUrl),
-                alt: computed(() => user.value?.name),
-            },
-            type: "label",
-        },
-    ],
-    [
-        {
-            label: computed(() => (isDark.value ? "Light mode" : "Dark mode")),
-            icon: computed(() => (isDark.value ? "i-lucide-sun" : "i-lucide-moon")),
-            onClick: () => {
-                isDark.value = !isDark.value;
-            },
-        },
-    ],
-    [
-        {
-            label: "logout",
-            icon: "i-lucide-log-out",
-            color: "error",
-            onClick: logout,
-        },
-    ],
-]);
 </script>
 
 <template>
-    <UDropdownMenu :items="items" :ui="{ content: 'w-48' }">
-        <UButton
-            :avatar="{ src: user.avatarUrl, alt: user.name }"
-            :label="collapsed ? undefined : user.name"
-            variant="ghost"
-            size="lg"
-            :trailing-icon="collapsed ? undefined : 'i-lucide-chevrons-up-down'"
-            block
-        />
-    </UDropdownMenu>
+    <SidebarMenu>
+        <SidebarMenuItem>
+            <DropdownMenu>
+                <DropdownMenuTrigger as-child>
+                    <SidebarMenuButton
+                        size="lg"
+                        class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
+                    >
+                        <Avatar class="size-8">
+                            <AvatarImage :src="user.avatarUrl" :alt="user.name" />
+                            <AvatarFallback>{{ user.name.slice(0, 2) }}</AvatarFallback>
+                        </Avatar>
+                        <span class="text-sm flex-1">{{ user.name }}</span>
+                        <ChevronsUpDown class="size-5" />
+                    </SidebarMenuButton>
+                </DropdownMenuTrigger>
+
+                <DropdownMenuContent class="min-w-56">
+                    <DropdownMenuLabel>My account</DropdownMenuLabel>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem @click="isDark = !isDark">
+                        <Sun v-if="isDark" />
+                        <Moon v-else />
+                        <span>{{ isDark ? "Light mode" : "Dark mode" }}</span>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuSeparator />
+
+                    <DropdownMenuItem @click="logout">
+                        <LogOut />
+                        <span>Log out</span>
+                    </DropdownMenuItem>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </SidebarMenuItem>
+    </SidebarMenu>
 </template>

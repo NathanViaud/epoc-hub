@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { RefreshCw } from "lucide-vue-next";
+
 definePageMeta({
     middleware: ["authenticated"],
     title: "Files",
@@ -21,13 +23,9 @@ async function refreshAll() {
         <div class="flex justify-between items-center">
             <LayoutPageTitle />
             <div class="flex items-center gap-2">
-                <UButton
-                    square
-                    icon="i-lucide-refresh-ccw"
-                    @click="refreshAll()"
-                    :loading="loading"
-                    variant="outline"
-                />
+                <Button size="icon" @click="refreshAll" variant="outline">
+                    <RefreshCw class="size-5" :class="{ 'animate-spin': loading }" />
+                </Button>
                 <FileUploader @uploaded="refreshAll" size="lg" />
             </div>
         </div>
