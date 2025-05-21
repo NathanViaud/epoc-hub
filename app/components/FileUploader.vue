@@ -131,7 +131,7 @@ function onFileOpen() {
                 <DialogTitle>Upload</DialogTitle>
             </DialogHeader>
             <form @submit="onSubmit" class="space-y-4">
-                <Button @click="onFileOpen" class="w-full"><Upload />Change file</Button>
+                <Button @click.prevent="onFileOpen" class="w-full"><Upload />Change file</Button>
 
                 <template v-if="form.values.title">
                     <Separator />
