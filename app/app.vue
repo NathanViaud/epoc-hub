@@ -10,6 +10,7 @@ const colorMode = useColorMode();
     </NuxtLayout>
 
     <ClientOnly>
+        <!-- @vue-expect-error -->
         <Toaster rich-colors :theme="colorMode.value" />
     </ClientOnly>
 </template>

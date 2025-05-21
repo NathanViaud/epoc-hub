@@ -3,15 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
     devtools: { enabled: true },
 
-    modules: [
-        "@nuxt/ui",
-        "@nuxthub/core",
-        "@nuxt/image",
-        "nuxt-auth-utils",
-        "@nuxt/content",
-        "@vueuse/nuxt",
-        "shadcn-nuxt",
-    ],
+    modules: ["@nuxthub/core", "@nuxt/image", "nuxt-auth-utils", "@nuxt/content", "@vueuse/nuxt", "shadcn-nuxt"],
 
     css: ["~/assets/css/main.css"],
 
