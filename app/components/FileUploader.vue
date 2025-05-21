@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import JSZip from "jszip";
 import { z } from "zod";
-import type { FormSubmitEvent } from "@nuxt/ui";
+import { toast } from "vue-sonner";
+import { Upload, Loader } from "lucide-vue-next";
+import { toTypedSchema } from "@vee-validate/zod";
+import { useForm } from "vee-validate";
 
 const emit = defineEmits<{
     (e: "uploaded"): void;
 }>();
 
-const toast = useToast();
 const open = ref(false);
 
 const schema = z.object({
@@ -17,17 +19,15 @@ const schema = z.object({
     imageFile: z.instanceof(File).optional(),
 });
 
-type Schema = z.output<typeof schema>;
+const formSchema = toTypedSchema(schema);
 
-const state = reactive<Partial<Schema>>({
-    file: undefined,
-    title: undefined,
-    imageUrl: undefined,
-    imageFile: undefined,
+const form = useForm({
+    validationSchema: formSchema,
 });
 
-async function onSubmit(event: FormSubmitEvent<Schema>) {
-    const { file, title, imageFile } = event.data;
+const onSubmit = form.handleSubmit(async (values) => {
+    const { file, title, imageFile } = values;
+
     try {
         const upload = useMultipartUpload("/api/files/multipart");
         const { progress, completed, abort } = upload(file);
@@ -53,41 +53,31 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         });
 
         emit("uploaded");
-        toast.add({ title: "Success", description: "File uploaded successfully", color: "success" });
-    } catch (e) {
-        console.error("Upload error:", e);
-        toast.add({
-            title: "Error",
-            description: e.message || "Failed to upload file",
-            color: "error",
-        });
+        toast.success("File uploaded successfully");
+    } catch (e: any) {
+        toast.error(e.message || "Failed to upload file");
     }
 
     open.value = false;
-    Object.assign(state, {
-        file: undefined,
-        title: undefined,
-        imageUrl: undefined,
-        imageFile: undefined,
-    });
-}
+    form.resetForm();
+});
 
 async function handleFileChange(event: Event) {
     open.value = true;
 
     const files = (event.target as HTMLInputElement).files;
-    state.file = files?.[0];
-    if (!state.file) return;
+    form.setValues({ file: files?.[0] });
+    if (!form.values.file) return;
 
     try {
         const zip = new JSZip();
-        const zipContent = await zip.loadAsync(state.file);
+        const zipContent = await zip.loadAsync(form.values.file);
 
         const contentJson = await zipContent.file("content.json")?.async("text");
         if (!contentJson) return;
 
         const parsedJson = JSON.parse(contentJson);
-        state.title = parsedJson.title || "Untitled";
+        form.setValues({ title: parsedJson.title || "Untitled" });
 
         if (parsedJson.image) {
             const path = parsedJson.image.replace(/^.*[\\\/]/, "");
@@ -96,33 +86,32 @@ async function handleFileChange(event: Event) {
                 const imageFile = zipContent.file(parsedJson.image);
                 if (imageFile) {
                     const imageBlob = await imageFile.async("blob");
-                    state.imageUrl = URL.createObjectURL(imageBlob);
-                    state.imageFile = new File([imageBlob], path, { type: imageBlob.type || "image/jpeg" });
+                    form.setValues({
+                        imageUrl: URL.createObjectURL(imageBlob),
+                        imageFile: new File([imageBlob], path, { type: imageBlob.type || "image/jpeg" }),
+                    });
                 } else {
-                    state.imageUrl = undefined;
-                    state.imageFile = undefined;
+                    form.setValues({
+                        imageUrl: undefined,
+                        imageFile: undefined,
+                    });
                 }
             }
         } else {
-            state.imageUrl = undefined;
-            state.imageFile = undefined;
+            form.setValues({
+                imageUrl: undefined,
+                imageFile: undefined,
+            });
         }
     } catch (error) {
-        console.error("Error processing zip file:", error);
-        toast.add({
-            title: "Error",
-            description: "Failed to process the file",
-            color: "error",
-        });
+        toast.error("Failed to process the file");
     }
 }
 
-const form = useTemplateRef("form");
-
 // Clean up object URLs when component is unmounted
 onBeforeUnmount(() => {
-    if (state.imageUrl && state.imageUrl.startsWith("blob:")) {
-        URL.revokeObjectURL(state.imageUrl);
+    if (form.values.imageUrl && form.values.imageUrl.startsWith("blob:")) {
+        URL.revokeObjectURL(form.values.imageUrl);
     }
 });
 
@@ -133,25 +122,28 @@ function onFileOpen() {
 </script>
 
 <template>
-    <div>
-        <UButton size="lg" label="Upload" icon="i-lucide-upload" @click="onFileOpen" />
+    <Dialog v-model:open="open">
         <input ref="input" type="file" @change="handleFileChange" name="file" accept=".epoc" class="hidden" />
-        <UModal v-model:open="open">
-            <template #header>
-                <h2>Upload Files</h2>
-            </template>
-            <template #body>
-                <UForm ref="form" loading-auto :schema="schema" :state="state" class="space-y-4" @submit="onSubmit">
-                    <UButton block label="Change file" icon="i-lucide-upload" @click="onFileOpen" />
-                    <div v-if="state.title" class="space-y-3">
-                        <USeparator />
-                        <h2>Preview</h2>
+        <Button @click="onFileOpen"><Upload /> Upload </Button>
 
-                        <EpocItem :title="state.title" :image="state.imageUrl" preview />
-                    </div>
-                    <UButton block type="submit" label="Upload" icon="i-lucide-upload" :loading="form?.loading" />
-                </UForm>
-            </template>
-        </UModal>
-    </div>
+        <DialogScrollContent>
+            <DialogHeader>
+                <DialogTitle>Upload</DialogTitle>
+            </DialogHeader>
+            <form @submit="onSubmit" class="space-y-4">
+                <Button @click="onFileOpen" class="w-full"><Upload />Change file</Button>
+
+                <template v-if="form.values.title">
+                    <Separator />
+                    <h3 class="text-lg">Preview</h3>
+
+                    <EpocItem :title="form.values.title" :image="form.values.imageUrl" preview />
+                </template>
+
+                <Button :disabled="form.isSubmitting.value" class="w-full" type="submit">
+                    <Upload v-if="!form.isSubmitting.value" /> <Loader v-else class="animate-spin" /> Upload
+                </Button>
+            </form>
+        </DialogScrollContent>
+    </Dialog>
 </template>

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RefreshCw } from "lucide-vue-next";
+import { RefreshCw, FolderX } from "lucide-vue-next";
 
 definePageMeta({
     middleware: ["authenticated"],
@@ -29,12 +29,14 @@ async function refreshAll() {
                 <FileUploader @uploaded="refreshAll" size="lg" />
             </div>
         </div>
+
         <div class="flex flex-col gap-2" v-if="maxQuota">
-            <UProgress v-model="used" :max="maxQuota" color="neutral" />
-            <span class="text-muted self-end">
+            <Progress v-if="used !== undefined" :model-value="(used / maxQuota) * 100" />
+            <span class="text-muted-foreground self-end">
                 {{ used ? getSizeString(used) : "0" }} / {{ getSizeString(maxQuota) }}</span
             >
         </div>
+
         <div
             v-if="epocs?.length"
             class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 3xl:grid-cols-5 4xl:grid-cols-6 5xl:grid-cols-7 gap-4"
@@ -50,8 +52,8 @@ async function refreshAll() {
             />
         </div>
         <div v-else>
-            <div class="flex flex-col gap-2 items-center justify-center text-muted">
-                <UIcon name="i-lucide-folder-x" class="size-10" />
+            <div class="flex flex-col gap-2 items-center justify-center text-muted-foreground">
+                <FolderX class="size-10" />
                 <span class="text-lg">No files found</span>
             </div>
         </div>

@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import type { DropdownMenuItem } from "@nuxt/ui";
 import type { BlobObject } from "@nuxthub/core";
+import { toast } from "vue-sonner";
+import { Download, QrCode, Ellipsis, Copy, Trash } from "lucide-vue-next";
 
 const props = defineProps<{
     id?: number;
@@ -33,50 +34,27 @@ function downloadQRCode() {
     });
 }
 
-const toast = useToast();
-const menu: Ref<DropdownMenuItem[][]> = ref([
-    [
-        {
-            label: "Download",
-            icon: "i-lucide-download",
-            to: `/files/${props.path}`,
-            external: true,
-        },
-        {
-            label: "Copy link",
-            icon: "i-lucide-copy",
-            onClick: async () => {
-                await navigator.clipboard.writeText(`${baseUrl.value}/files/${props.path}`);
-                toast.add({ title: "Success", description: "Link copied to clipboard", color: "success" });
-            },
-        },
-    ],
-]);
-if (!props.libraryMode) {
-    menu.value.push([
-        {
-            label: "Delete",
-            icon: "i-lucide-trash",
-            color: "error",
-            onClick: async () => {
-                try {
-                    await $fetch(`/api/epocs/${props.id}`, {
-                        method: "DELETE",
-                    });
-                    toast.add({ title: "Success", description: "ePoc deleted successfully", color: "success" });
-                    emit("deleted", props.id!);
-                } catch (error) {
-                    console.error(error);
-                    toast.add({ title: "Error", description: "Failed to delete ePoc", color: "error" });
-                }
-            },
-        },
-    ]);
+async function copyLink() {
+    await navigator.clipboard.writeText(`${baseUrl.value}/files/${props.path}`);
+    toast.success("Link copied to clipboard");
+}
+
+async function deleteItem() {
+    try {
+        await $fetch(`/api/epocs/${props.id}`, {
+            method: "DELETE",
+        });
+        toast.success("ePoc deleted successfully");
+        emit("deleted", props.id!);
+    } catch (error) {
+        console.error(error);
+        toast.error("Failed to delete ePoc");
+    }
 }
 </script>
 
 <template>
-    <UCard :ui="{ body: 'p-0! h-full flex flex-col' }" class="overflow-hidden">
+    <Card class="pt-0 pb-4 overflow-hidden">
         <img v-if="image" :src="image" alt="Thumbnail" class="w-full aspect-square object-cover" />
         <img
             v-else
@@ -84,41 +62,51 @@ if (!props.libraryMode) {
             alt="Default thumbnail"
             class="w-full aspect-square object-cover dark:invert p-4"
         />
-
-        <div class="p-4 flex flex-col flex-1 gap-4">
-            <div>
-                <h2 class="font-semibold">{{ title }}</h2>
-                <div class="flex justify-between">
-                    <span v-if="metadata" class="text-muted">{{ getSizeString(metadata.size) }}</span>
-                    <span v-if="downloads !== undefined" class="text-muted items-center flex gap-1">
-                        <UIcon name="i-lucide-download" />
+        <CardContent class="flex flex-col flex-1 gap-4 px-4">
+            <div class="space-y-1">
+                <CardTitle class="text-lg">{{ title }}</CardTitle>
+                <div class="flex justify-between text-muted-foreground">
+                    <span v-if="metadata">{{ getSizeString(metadata.size) }}</span>
+                    <span v-if="downloads !== undefined" class="items-center flex gap-1">
+                        <Download class="size-4" />
                         {{ downloads }}
                     </span>
                 </div>
             </div>
+        </CardContent>
+        <CardFooter v-if="!preview && path" class="gap-2 px-4">
+            <Dialog>
+                <DialogTrigger as-child class="flex-1">
+                    <Button><QrCode />QR Code</Button>
+                </DialogTrigger>
 
-            <div v-if="path" class="flex gap-2 mt-auto">
-                <UModal>
-                    <UButton block label="QR Code" icon="i-lucide-qr-code" />
+                <DialogContent>
+                    <DialogHeader>
+                        <DialogTitle>QR Code</DialogTitle>
+                    </DialogHeader>
+                    <EpocQRCode ref="qrCodeComponent" :link="`${baseUrl}/files/${path}`" />
 
-                    <template #content>
-                        <UCard>
-                            <template #header>
-                                <h2>QR Code</h2>
-                            </template>
-                            <EpocQRCode ref="qrCodeComponent" :link="`${baseUrl}/files/${path}`" />
-                            <template #footer>
-                                <div class="flex gap-2">
-                                    <UButton @click="downloadQRCode" block label="Download" icon="i-lucide-download" />
-                                </div>
-                            </template>
-                        </UCard>
+                    <DialogFooter>
+                        <Button @click="downloadQRCode" class="w-full"><Download />Download</Button>
+                    </DialogFooter>
+                </DialogContent>
+            </Dialog>
+
+            <DropdownMenu>
+                <DropdownMenuTrigger as-child>
+                    <Button size="icon" variant="ghost"><Ellipsis /></Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                    <DropdownMenuItem as-child>
+                        <NuxtLink :to="`/files/${props.path}`" external> <Download /> Download </NuxtLink>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem @click="copyLink"><Copy /> Copy link</DropdownMenuItem>
+                    <template v-if="!libraryMode">
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem @click="deleteItem"><Trash /> Delete</DropdownMenuItem>
                     </template>
-                </UModal>
-                <UDropdownMenu :items="menu">
-                    <UButton icon="i-lucide-ellipsis" variant="ghost" />
-                </UDropdownMenu>
-            </div>
-        </div>
-    </UCard>
+                </DropdownMenuContent>
+            </DropdownMenu>
+        </CardFooter>
+    </Card>
 </template>
