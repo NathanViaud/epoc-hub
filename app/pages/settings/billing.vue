@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { CreditCard, CloudUpload } from "lucide-vue-next";
 definePageMeta({
     middleware: ["authenticated"],
     title: "Billing",
@@ -13,7 +14,7 @@ const plans = [
         features: [
             {
                 label: "150MB of storage",
-                icon: "i-lucide-cloud-upload",
+                icon: CloudUpload,
             },
         ],
     },
@@ -25,35 +26,37 @@ const plans = [
         <div>
             <LayoutPageTitle />
         </div>
-        <UCard class="w-full max-w-4xl mx-auto">
-            <template #header>
-                <div class="flex items-center gap-2">
-                    <UIcon name="i-lucide-credit-card" class="text-muted size-5" />
-                    <h2 class="text-xl">Plans</h2>
-                </div>
-            </template>
-            <div class="space-y-4">
-                <UCard v-for="plan of plans">
-                    <div class="flex justify-between">
-                        <div space-y-1>
-                            <div class="flex gap-2 items-center">
-                                <h3 class="text-lg font-semibold">{{ plan.name }}</h3>
-                                <UBadge v-if="plan.id === currentPlan" label="Current plan" variant="soft" />
+        <Card class="max-w-4xl mx-auto">
+            <CardHeader>
+                <CardTitle class="flex items-center gap-2 text-xl">
+                    <CreditCard class="text-muted-foreground" /> Plans
+                </CardTitle>
+                <CardDescription>Choose your plan here</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <div class="space-y-4">
+                    <Card v-for="plan of plans">
+                        <CardContent class="flex justify-between">
+                            <div class="space-y-1">
+                                <div class="flex gap-2 items-center">
+                                    <CardTitle class="text-lg">{{ plan.name }}</CardTitle>
+                                    <Badge v-if="plan.id === currentPlan">Current plan</Badge>
+                                </div>
+                                <CardDescription>{{ plan.price }}</CardDescription>
                             </div>
-                            <p class="text-muted text-sm">{{ plan.price }}</p>
-                            <UTooltip text="Soon" :delay-duration="0">
-                                <UButton v-if="plan.id !== currentPlan" label="Upgrade plan" class="mt-4" disabled />
-                            </UTooltip>
-                        </div>
-                        <ul class="grid grid-cols-1 gap-5">
-                            <li v-for="feature of plan.features" class="text-muted flex items-center gap-1 text-sm">
-                                <UIcon :name="feature.icon" />
-                                <span>{{ feature.label }}</span>
-                            </li>
-                        </ul>
-                    </div>
-                </UCard>
-            </div>
-        </UCard>
+                            <ul class="grid grid-cols-1 gap-5">
+                                <li
+                                    v-for="feature of plan.features"
+                                    class="text-muted-foreground flex items-center gap-1 text-sm"
+                                >
+                                    <Component :is="feature.icon" />
+                                    <span>{{ feature.label }}</span>
+                                </li>
+                            </ul>
+                        </CardContent>
+                    </Card>
+                </div>
+            </CardContent>
+        </Card>
     </div>
 </template>
