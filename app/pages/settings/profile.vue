@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { toast } from "vue-sonner";
+import { User, Trash } from "lucide-vue-next";
+
 definePageMeta({
     middleware: ["authenticated"],
     title: "Profile",
@@ -6,73 +9,100 @@ definePageMeta({
 
 const { user, fetch } = useUserSession();
 
-const toast = useToast();
 const username = ref(user.value.name);
 watchDebounced(
     username,
     async (newValue) => {
         try {
-            await $fetch("/api/auth/update", {
+            await $fetch("/api/user", {
                 method: "PATCH",
                 body: {
                     name: newValue,
                 },
             });
             await fetch();
-            toast.add({ title: "Username updated", color: "success" });
+            toast.success("Username updated");
         } catch (e) {
-            toast.add({ title: "An error occured during username update", color: "error" });
+            toast.error("An error occured during username update");
         }
     },
     { debounce: 1000 },
 );
 
-const deleteModal = ref(false);
+async function deleteAccount() {
+    try {
+        await $fetch("/api/user", {
+            method: "DELETE",
+        });
+        await fetch();
+        toast.info("Your account was successfully deleted");
+
+        await navigateTo("/auth");
+    } catch (e) {
+        toast.error("An error occured during account deletion");
+    }
+}
 </script>
 
 <template>
     <div class="space-y-5 w-full">
         <LayoutPageTitle />
-        <UCard class="w-full max-w-4xl mx-auto">
-            <template #header>
-                <div class="flex items-center gap-2">
-                    <UIcon name="i-lucide-user" class="text-muted size-5" />
-                    <h2 class="text-xl">Account</h2>
-                </div>
-            </template>
+        <Card class="max-w-4xl mx-auto">
+            <CardHeader>
+                <CardTitle class="flex items-center gap-2 text-xl">
+                    <User class="text-muted-foreground" /> Account
+                </CardTitle>
+                <CardDescription> Change the details of your profile here </CardDescription>
+            </CardHeader>
 
-            <ul class="w-full space-y-4">
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Profile picture</span>
-                    <UAvatar :src="user.avatarUrl" :alt="user.name" size="lg" />
-                </li>
+            <CardContent>
+                <ul class="space-y-4">
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Profile picture</span>
+                        <Avatar>
+                            <AvatarImage :src="user.avatarUrl" :alt="user.name" />
+                            <AvatarFallback>{{ user.name.slice(0, 2) }}</AvatarFallback>
+                        </Avatar>
+                    </li>
 
-                <USeparator />
+                    <Separator />
 
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold">Username</span>
-                    <UInput v-model="username" />
-                </li>
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold">Username</span>
+                        <div class="relative inline-flex items-center">
+                            <Input v-model="username" />
+                        </div>
+                    </li>
 
-                <USeparator />
+                    <Separator />
 
-                <li class="flex items-center">
-                    <span class="flex-1 font-semibold text-error">Danger zone</span>
-                    <UModal title="Delete your account" v-model:open="deleteModal">
-                        <UButton color="error" label="Delete your account" icon="i-lucide-trash" />
-                        <template #body>
-                            <div class="rounded-full size-16 bg-muted flex items-center justify-center mx-auto mb-4">
-                                <UIcon name="i-lucide-triangle-alert" class="size-10 text-error" />
-                            </div>
-                            <p class="text-center">This will delete all your data from this website</p>
-                        </template>
-                        <template #footer>
-                            <UButton block variant="soft" label="No, keep it" @click="deleteModal = false" />
-                            <UButton block color="error" label="Yes, delete it" />
-                        </template>
-                    </UModal>
-                </li>
-            </ul>
-        </UCard>
+                    <li class="flex items-center">
+                        <span class="flex-1 font-semibold text-destructive-foreground">Danger zone</span>
+
+                        <AlertDialog>
+                            <AlertDialogTrigger as-child>
+                                <Button variant="destructive"><Trash />Delete your account</Button>
+                            </AlertDialogTrigger>
+
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you sure ?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action action cannot be undone. This will permanently delete your account
+                                        and remove your data from our servers.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel class="flex-1">No, keep it</AlertDialogCancel>
+                                    <AlertDialogAction @click="deleteAccount" class="flex-1" variant="destructive">
+                                        Yes, delete it
+                                    </AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </li>
+                </ul>
+            </CardContent>
+        </Card>
     </div>
 </template>

@@ -1,8 +1,6 @@
-import { z } from "zod";
 import { userUpdateSchema } from "~/database/schema";
 
 export default eventHandler(async (event) => {
-    console.log("update");
     const { user } = await requireUserSession(event);
     const { name } = await readValidatedBody(event, userUpdateSchema.parse);
 
