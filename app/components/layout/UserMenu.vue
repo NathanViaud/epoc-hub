@@ -50,7 +50,7 @@ function logout() {
 
                     <DropdownMenuSeparator />
 
-                    <DropdownMenuItem @click="logout">
+                    <DropdownMenuItem @click="logout" variant="destructive">
                         <LogOut />
                         <span>Log out</span>
                     </DropdownMenuItem>

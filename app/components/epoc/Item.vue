@@ -103,7 +103,7 @@ async function deleteItem() {
                     <DropdownMenuItem @click="copyLink"><Copy /> Copy link</DropdownMenuItem>
                     <template v-if="!libraryMode">
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem @click="deleteItem"><Trash /> Delete</DropdownMenuItem>
+                        <DropdownMenuItem @click="deleteItem" variant="destructive"><Trash /> Delete</DropdownMenuItem>
                     </template>
                 </DropdownMenuContent>
             </DropdownMenu>

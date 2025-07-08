@@ -63,10 +63,16 @@ const onSubmit = form.handleSubmit(async (values) => {
 });
 
 async function handleFileChange(event: Event) {
-    open.value = true;
-
     const files = (event.target as HTMLInputElement).files;
-    form.setValues({ file: files?.[0] });
+    const file = files?.[0];
+    if (!file) return;
+
+    await loadEpoc(file);
+}
+
+async function loadEpoc(file: File) {
+    open.value = true;
+    form.setValues({ file });
     if (!form.values.file) return;
 
     try {
@@ -119,6 +125,10 @@ const input = useTemplateRef("input");
 function onFileOpen() {
     input.value?.click();
 }
+
+defineExpose({
+    loadEpoc,
+});
 </script>
 
 <template>
