@@ -43,5 +43,11 @@ export default defineNuxtConfig({
         classSuffix: "",
     },
 
+    runtimeConfig: {
+        public: {
+            appRedirect: "https://epoc.inria.fr/app-redirect/dl?url=",
+        },
+    },
+
     compatibilityDate: "2024-11-27",
 });

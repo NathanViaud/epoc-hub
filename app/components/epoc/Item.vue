@@ -51,6 +51,8 @@ async function deleteItem() {
         toast.error("Failed to delete ePoc");
     }
 }
+
+const runtimeConfig = useRuntimeConfig();
 </script>
 
 <template>
@@ -84,7 +86,10 @@ async function deleteItem() {
                     <DialogHeader>
                         <DialogTitle>QR Code</DialogTitle>
                     </DialogHeader>
-                    <EpocQRCode ref="qrCodeComponent" :link="`${baseUrl}/files/${path}`" />
+                    <EpocQRCode
+                        ref="qrCodeComponent"
+                        :link="`${runtimeConfig.public.appRedirect}${baseUrl}/files/${path}`"
+                    />
 
                     <DialogFooter>
                         <Button @click="downloadQRCode" class="w-full"><Download />Download</Button>
