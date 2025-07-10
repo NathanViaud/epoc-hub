@@ -2,7 +2,7 @@
 import type { FetchError } from "ofetch";
 import { toast } from "vue-sonner";
 import { toTypedSchema } from "@vee-validate/zod";
-import { registerSchema } from "~/database/schema";
+import { registerSchema } from "#shared/database/schema";
 import { useForm } from "vee-validate";
 import { GoogleIcon, GitHubIcon } from "vue3-simple-icons";
 

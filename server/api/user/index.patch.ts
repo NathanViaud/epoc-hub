@@ -1,4 +1,4 @@
-import { userUpdateSchema } from "~/database/schema";
+import { userUpdateSchema } from "#shared/database/schema";
 
 export default eventHandler(async (event) => {
     const { user } = await requireUserSession(event);

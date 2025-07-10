@@ -1,4 +1,4 @@
-import { loginSchema } from "~/database/schema";
+import { loginSchema } from "#shared/database/schema";
 
 export default eventHandler(async (event) => {
     const { email, password } = await readValidatedBody(event, loginSchema.parse);

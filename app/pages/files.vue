@@ -27,6 +27,7 @@ function onDrop(files: File[] | null) {
 
 const { isOverDropZone } = useDropZone(dropZone, {
     onDrop,
+    multiple: false,
 });
 </script>
 

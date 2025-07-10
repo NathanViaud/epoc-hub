@@ -1,5 +1,4 @@
 import { sqliteTable, text, integer } from "drizzle-orm/sqlite-core";
-import { createUpdateSchema } from "drizzle-zod";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
